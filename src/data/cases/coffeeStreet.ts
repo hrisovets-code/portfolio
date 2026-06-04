@@ -8,7 +8,7 @@ export const coffeeStreet = {
   team: 'Art director + PM + 2 devs + Designer',
   client: 'MEAH · Warsaw',
 
-  about: `Coffee Street Service is a 19-year-old holding group — the largest supplier of coffee, equipment, and raw materials for the HoReCa industry in the North Caucasus region of Russia. The group runs 12+ brands: a B2B supply division, equipment repair center (Handyman), barista training school, coffee shop chain, and events agency. At its core, Coffee Street Service supplies 1,200+ cafés with everything from fresh-roasted beans and milk to cups, syrups, and espresso machines. All ordering happened via WhatsApp messages to personal managers.`,
+  about: `Coffee Street Service is a 21-year-old holding group (founded 2003) — the largest supplier of coffee, equipment, and raw materials for the HoReCa industry in the North Caucasus region of Russia. With 100+ employees and 7,000+ B2B clients, the group operates 12 brands: a core supply division, equipment repair center (Handyman), barista training school, coffee shop chain (Coffee Street Bar), events agency, and an entrepreneur club. At its core, CSS supplies HoReCa businesses with everything from fresh-roasted beans and milk to espresso machines and consumables. All ordering happened via WhatsApp messages to personal managers.`,
 
   problem: `No app, no order history, no stock visibility, no delivery tracking. Café owners and baristas texted managers at any hour — including 2 AM. Delivery delays (cited by 10 of 18 interviewed users) meant cafés ran out of stock mid-service, losing revenue and guests. KSS needed a mobile ordering app to scale operations without losing the personal, responsive service that made them the regional market leader.`,
 
@@ -45,7 +45,7 @@ export const coffeeStreet = {
   },
 
   brandContext: {
-    summary: 'Coffee Street Service had a strong existing brand identity (by agency Packer, 2021) with 211K Instagram followers. The design challenge: bridge bold offline branding with mobile UX that scales to thousands of B2B users.',
+    summary: 'Coffee Street Service had a strong existing brand identity (by agency Packer, 2021) with 211K Instagram followers and a branded mascot — an animated coffee cup character "Bodryashchy Buddy" used across corporate materials. The design challenge: bridge bold offline branding with mobile UX that scales to 7,000+ B2B users.',
     colors: [
       { name: 'Brand Yellow', hex: '#FFD230', role: 'Primary accent — CTAs, highlights, key actions' },
       { name: 'Dark Gray', hex: '#272727', role: 'Primary background in dark contexts' },
