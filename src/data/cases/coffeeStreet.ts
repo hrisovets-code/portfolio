@@ -47,10 +47,10 @@ export const coffeeStreet = {
   brandContext: {
     summary: 'Coffee Street Service had a strong existing brand identity (by agency Packer, 2021) with 211K Instagram followers and a branded mascot — an animated coffee cup character "Bodryashchy Buddy" used across corporate materials. The design challenge: bridge bold offline branding with mobile UX that scales to 7,000+ B2B users.',
     colors: [
-      { name: 'Brand Yellow', hex: '#FFD230', role: 'Primary accent — CTAs, highlights, key actions' },
-      { name: 'Dark Gray', hex: '#272727', role: 'Primary background in dark contexts' },
-      { name: 'Black', hex: '#000000', role: 'Text, logo, graphic elements' },
-      { name: 'White', hex: '#FFFFFF', role: 'Light backgrounds, inverse text' },
+      { name: 'Brand Yellow', hex: '#FFD230', role: 'Primary · CTAs, highlights' },
+      { name: 'Dark Gray', hex: '#272727', role: 'Surface · dark backgrounds' },
+      { name: 'Black', hex: '#000000', role: 'On-surface · text, icons' },
+      { name: 'White', hex: '#FFFFFF', role: 'Background · light surfaces' },
     ],
     typography: 'Bebas Neue (headings, bold statements) + Formular (body, UI text). Mapped to Material Display / Body styles respectively.',
     challenge: 'The brand uses a bold black/yellow print-first visual system built around a graphic coffee tree pattern. Adapting this to Material Design 3\'s semantic token system — while keeping the brand recognizable on a small mobile screen — required careful decisions about which brand elements to preserve and which to simplify.',
