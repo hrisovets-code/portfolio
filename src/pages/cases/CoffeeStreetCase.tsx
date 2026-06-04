@@ -55,7 +55,38 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             </div>
           </div>
 
-          <Placeholder label="Research artifacts: interview clips, affinity map" height="h-48" />
+          {/* Respondent breakdown */}
+          <div className="rounded-xl border border-zinc-100 dark:border-zinc-800 overflow-hidden">
+            <div className="px-4 pt-4 pb-3 bg-zinc-50 dark:bg-zinc-900">
+              <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">18 respondents · 4 roles</p>
+              <div className="space-y-2">
+                {data.research.respondents.map((r, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-24 shrink-0 text-xs text-zinc-500">{r.role}</div>
+                    <div className="flex gap-1">
+                      {Array.from({ length: r.count }).map((_, j) => (
+                        <div key={j} className="w-4 h-4 rounded-full bg-orange-400/80" />
+                      ))}
+                    </div>
+                    <div className="text-xs text-zinc-400 ml-1">{r.count} · {r.note}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Theme clusters */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-3">Key themes from interviews</p>
+            <div className="flex flex-wrap gap-2">
+              {data.research.themes.map((t, i) => (
+                <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800">
+                  <span className="text-xs text-zinc-600 dark:text-zinc-300">{t.label}</span>
+                  <span className="text-xs font-mono text-orange-400">{t.count}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div>
             <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-3">Key hypotheses from research</h3>

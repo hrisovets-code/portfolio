@@ -16,6 +16,20 @@ export const coffeeStreet = {
 
   research: {
     method: '18 in-depth interviews conducted by 20/80 consulting with café managers, owners, baristas, and head baristas across the region.',
+    respondents: [
+      { role: 'Café managers', count: 7, note: 'Day-to-day ordering decisions' },
+      { role: 'Café owners', count: 5, note: 'Budget, supplier relationships' },
+      { role: 'Head baristas', count: 4, note: 'Product quality, stock urgency' },
+      { role: 'Baristas', count: 2, note: 'End-users, shift realities' },
+    ],
+    themes: [
+      { label: 'Delivery reliability', count: 10 },
+      { label: 'Express restocking', count: 6 },
+      { label: 'After-hours ordering', count: 3 },
+      { label: 'Stock visibility', count: 8 },
+      { label: 'Order history & repeat', count: 5 },
+      { label: 'Loyalty & access levels', count: 4 },
+    ],
     insights: [
       {
         stat: '10 / 18',
