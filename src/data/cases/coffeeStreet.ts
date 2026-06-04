@@ -1,18 +1,18 @@
 export const coffeeStreet = {
   slug: 'coffee-street',
   title: 'Coffee Street Company',
-  subtitle: 'B2B mobile ordering app — from zero',
+  subtitle: 'B2B e-commerce platform — from zero',
   year: '2025–2026',
   role: 'UX/UI Designer',
-  platform: 'iOS / Android',
+  platform: 'Web · iOS / Android',
   team: 'Art director + PM + 2 devs + Designer',
   client: 'MEAH · Warsaw',
 
   about: `Coffee Street Service is a 21-year-old holding group (founded 2003) — the largest supplier of coffee, equipment, and raw materials for the HoReCa industry in the North Caucasus region of Russia. With 100+ employees and 7,000+ B2B clients, the group operates 12 brands: a core supply division, equipment repair center (Handyman), barista training school, coffee shop chain (Coffee Street Bar), events agency, and an entrepreneur club. At its core, CSS supplies HoReCa businesses with everything from fresh-roasted beans and milk to espresso machines and consumables. All ordering happened via WhatsApp messages to personal managers.`,
 
-  problem: `No app, no order history, no stock visibility, no delivery tracking. Café owners and baristas texted managers at any hour — including 2 AM. Delivery delays (cited by 10 of 18 interviewed users) meant cafés ran out of stock mid-service, losing revenue and guests. KSS needed a mobile ordering app to scale operations without losing the personal, responsive service that made them the regional market leader.`,
+  problem: `No digital presence — no website, no app, no order history, no stock visibility. Café owners and baristas texted managers at any hour to check availability and prices. 70% of manager calls were stock and price inquiries; 20% were repeat orders of the same items. KSS needed an e-commerce platform to move sales online and scale without losing the personal service that made them the regional market leader.`,
 
-  myRole: `Full design cycle: translated research findings into user flows, wireframes, and high-fidelity UI. Built the design system from scratch following Material Design 3. Handled developer handoff and reviewed production output. Collaborated daily with the art director and PM.`,
+  myRole: `Full design cycle across both web and mobile: competitive analysis, information architecture, wireframes (20+ pages, 4 breakpoints), high-fidelity UI, and a component library of 80+ elements. The mobile app mirrors the 360px web experience. Collaborated daily with the art director and PM; handled developer handoff.`,
 
   research: {
     method: '18 in-depth interviews conducted by 20/80 consulting with café managers, owners, baristas, and head baristas across the region.',

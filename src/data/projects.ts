@@ -14,10 +14,10 @@ export const projects: Project[] = [
   {
     slug: 'coffee-street',
     title: 'Coffee Street Company',
-    subtitle: 'B2B mobile ordering app · From zero',
+    subtitle: 'B2B e-commerce platform · From zero',
     year: '2025–2026',
     role: 'UX/UI Designer',
-    platform: 'iOS / Android',
+    platform: 'Web · iOS / Android',
     team: 'Art director + PM + 2 devs',
     coverColor: 'from-orange-500/20 to-amber-500/20',
     tags: ['UX Research', 'UI', 'Design System'],
