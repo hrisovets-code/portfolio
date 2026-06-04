@@ -7,6 +7,7 @@ export interface Project {
   platform: string
   team: string
   coverColor: string
+  cover?: string
   tags: string[]
 }
 
@@ -20,6 +21,7 @@ export const projects: Project[] = [
     platform: 'Web · iOS / Android',
     team: 'Art director + PM + 2 devs',
     coverColor: 'from-orange-500/20 to-amber-500/20',
+    cover: '/cases/coffee-street/cover.jpg',
     tags: ['UX Research', 'UI', 'Design System'],
   },
   {
