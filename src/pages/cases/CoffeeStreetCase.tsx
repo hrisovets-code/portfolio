@@ -153,12 +153,51 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
       {/* Block 5 — Final Design */}
       <Section title="Final Design">
-        <div className="space-y-4">
-          <Placeholder label="Hi-fi screens: catalogue, order flow, express delivery, order history" height="h-[480px]" />
-          <div className="p-4 rounded-xl bg-orange-50 dark:bg-orange-950/20 border border-orange-100 dark:border-orange-900/30">
-            <p className="text-sm text-orange-600 dark:text-orange-400">
-              Figma prototype: <span className="text-zinc-400">[link will be added]</span>
-            </p>
+        <div className="space-y-3">
+          {/* Homepage full page */}
+          <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+            <img src="/cases/coffee-street/ui/home-1440.jpg" alt="Homepage 1440px" className="w-full" />
+            <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Homepage — hero, weekly offers, premium subscription, partnerships, FAQ, blog</p>
+          </div>
+
+          {/* Catalog + Product */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+              <img src="/cases/coffee-street/ui/catalog-1440.jpg" alt="Catalogue 1440px" className="w-full" />
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Catalogue — filters, product grid</p>
+            </div>
+            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+              <img src="/cases/coffee-street/ui/product-1440.jpg" alt="Product page 1440px" className="w-full" />
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Product page — specs, add to cart, similar items</p>
+            </div>
+          </div>
+
+          {/* Cart + Orders */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+              <img src="/cases/coffee-street/ui/cart-1440.jpg" alt="Cart 1440px" className="w-full" />
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Cart</p>
+            </div>
+            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+              <img src="/cases/coffee-street/ui/orders-1440.jpg" alt="Orders 1440px" className="w-full" />
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Order history — personal account</p>
+            </div>
+          </div>
+
+          {/* Mobile */}
+          <div className="flex gap-3 justify-center">
+            <div className="w-[200px] rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800 shrink-0">
+              <div className="h-[400px] overflow-hidden">
+                <img src="/cases/coffee-street/ui/home-360.jpg" alt="Mobile homepage" className="w-full" />
+              </div>
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Mobile homepage</p>
+            </div>
+            <div className="w-[200px] rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800 shrink-0">
+              <div className="h-[400px] overflow-hidden">
+                <img src="/cases/coffee-street/ui/catalog-360.jpg" alt="Mobile catalogue" className="w-full" />
+              </div>
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Mobile catalogue</p>
+            </div>
           </div>
         </div>
       </Section>
