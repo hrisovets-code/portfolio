@@ -95,7 +95,29 @@ export function ProjectCase() {
         </Link>
 
         <motion.div {...fade(0.05)}>
-          <Placeholder label="Hero image / composed scene" height="h-80" />
+          {isCoffeeStreet ? (
+            <div className="h-80 rounded-xl overflow-hidden relative bg-[#272727] select-none">
+              {/* Desktop browser mockup */}
+              <div className="absolute left-5 top-5 bottom-5 w-[62%] rounded-lg overflow-hidden shadow-2xl border border-white/10 flex flex-col">
+                <div className="h-6 bg-zinc-950 flex items-center px-2 gap-1.5 shrink-0">
+                  <span className="w-2 h-2 rounded-full bg-white/20" />
+                  <span className="w-2 h-2 rounded-full bg-white/20" />
+                  <span className="w-2 h-2 rounded-full bg-white/20" />
+                </div>
+                <div className="flex-1 overflow-hidden">
+                  <img src="/cases/coffee-street/ui/home-1440.jpg" alt="" className="w-full h-full object-cover object-top" />
+                </div>
+              </div>
+              {/* Mobile mockup */}
+              <div className="absolute right-5 top-10 bottom-10 w-[22%] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/15">
+                <img src="/cases/coffee-street/ui/home-360.jpg" alt="" className="w-full h-full object-cover object-top" />
+              </div>
+              {/* Brand yellow accent line */}
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#FFD230]" />
+            </div>
+          ) : (
+            <Placeholder label="Hero image / composed scene" height="h-80" />
+          )}
         </motion.div>
 
         <motion.div {...fade(0.1)} className="mt-6">
