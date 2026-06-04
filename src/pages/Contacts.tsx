@@ -2,7 +2,9 @@ import { motion } from 'framer-motion'
 
 const links = [
   { label: 'Email', value: 'efron.vl@gmail.com', href: 'mailto:efron.vl@gmail.com' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/designbyvl', href: 'https://linkedin.com/in/designbyvl' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/designbyvl', href: 'https://www.linkedin.com/in/designbyvl/' },
+  { label: 'Behance', value: 'behance.net/ba3e1b6c', href: 'https://www.behance.net/ba3e1b6c' },
+  { label: 'Telegram', value: '@designbyvl', href: 'https://t.me/designbyvl' },
 ]
 
 export function Contacts() {
