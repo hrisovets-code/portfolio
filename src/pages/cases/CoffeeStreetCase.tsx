@@ -96,17 +96,55 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
       {/* Block 4 — Design System */}
       <Section title="Design System / UI Kit">
-        <div className="space-y-5">
-          <p className="text-sm text-zinc-500">{data.designSystem.foundation}</p>
-          <div className="space-y-2">
-            {data.designSystem.rules.map((rule, i) => (
-              <div key={i} className="flex gap-3 text-sm text-zinc-500">
-                <span className="text-orange-400 shrink-0 mt-0.5">—</span>
-                <span>{rule}</span>
-              </div>
-            ))}
+        <div className="space-y-6">
+          {/* Brand context */}
+          <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-2">Brand context</h3>
+            <p className="text-sm text-zinc-500 leading-relaxed">{data.brandContext.summary}</p>
+            <p className="text-sm text-zinc-500 leading-relaxed mt-2">{data.brandContext.challenge}</p>
           </div>
-          <Placeholder label="Colors · Typography · Key components" />
+
+          {/* Brand colors */}
+          <div>
+            <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-3">Brand palette → Material tokens</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {data.brandContext.colors.map((color, i) => (
+                <div key={i} className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                  <div
+                    className="h-16"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  <div className="p-2 bg-white dark:bg-zinc-900">
+                    <div className="text-xs font-medium text-zinc-800 dark:text-zinc-200">{color.name}</div>
+                    <div className="text-xs text-zinc-400 font-mono">{color.hex}</div>
+                    <div className="text-xs text-zinc-400 mt-0.5 leading-tight">{color.role}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Typography */}
+          <div>
+            <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Typography mapping</h3>
+            <p className="text-sm text-zinc-500">{data.brandContext.typography}</p>
+          </div>
+
+          {/* Material DS rules */}
+          <div>
+            <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Material Design 3 rules</h3>
+            <p className="text-sm text-zinc-500 mb-3">{data.designSystem.foundation}</p>
+            <div className="space-y-2">
+              {data.designSystem.rules.map((rule, i) => (
+                <div key={i} className="flex gap-3 text-sm text-zinc-500">
+                  <span className="text-orange-400 shrink-0 mt-0.5">—</span>
+                  <span>{rule}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Placeholder label="Component library screenshots from Figma" />
         </div>
       </Section>
 

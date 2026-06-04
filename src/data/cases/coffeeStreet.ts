@@ -44,14 +44,26 @@ export const coffeeStreet = {
     ],
   },
 
+  brandContext: {
+    summary: 'Coffee Street Service had a strong existing brand identity (by agency Packer, 2021) with 211K Instagram followers. The design challenge: bridge bold offline branding with mobile UX that scales to thousands of B2B users.',
+    colors: [
+      { name: 'Brand Yellow', hex: '#FFD230', role: 'Primary accent — CTAs, highlights, key actions' },
+      { name: 'Dark Gray', hex: '#272727', role: 'Primary background in dark contexts' },
+      { name: 'Black', hex: '#000000', role: 'Text, logo, graphic elements' },
+      { name: 'White', hex: '#FFFFFF', role: 'Light backgrounds, inverse text' },
+    ],
+    typography: 'Bebas Neue (headings, bold statements) + Formular (body, UI text). Mapped to Material Display / Body styles respectively.',
+    challenge: 'The brand uses a bold black/yellow print-first visual system built around a graphic coffee tree pattern. Adapting this to Material Design 3\'s semantic token system — while keeping the brand recognizable on a small mobile screen — required careful decisions about which brand elements to preserve and which to simplify.',
+  },
+
   designSystem: {
-    foundation: 'Material Design 3 with custom brand tokens for КСС.',
+    foundation: 'Material Design 3 with Coffee Street brand tokens. Yellow #FFD230 → md.sys.color.primary. Dark gray #272727 → md.sys.color.surface.',
     rules: [
-      'All colors via Material semantic tokens — primary, surface, error, onPrimary',
-      'Typography: only Material text styles from displayLarge to labelSmall',
+      'All colors via Material semantic tokens — primary, onPrimary, surface, error, secondary',
+      'Bebas Neue → Material displayLarge/displayMedium. Formular → bodyLarge/bodyMedium/labelLarge',
       'Spacing grid: 4, 8, 16, 24, 32, 48 px — no arbitrary values',
-      'Icons: Material Icons pack for consistency and developer ease',
-      'Master components with all state variants (default, hover, pressed, disabled)',
+      'Icons: Material Icons pack — reduces dev implementation friction vs custom SVGs',
+      'Master components with all state variants: default, hover, focused, pressed, disabled',
     ],
   },
 
