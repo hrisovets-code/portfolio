@@ -147,7 +147,27 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             </div>
           </div>
 
-          <Placeholder label="Component library screenshots from Figma" />
+          {/* Component library */}
+          <div className="space-y-3 mt-2">
+            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+              <img src="/cases/coffee-street/ds/ds-header.jpg" alt="Header component — all breakpoints" className="w-full" />
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Header — 1440 / 1100 / 758 / 360px variants</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                <img src="/cases/coffee-street/ds/ds-buttons.jpg" alt="Button component states" className="w-full" />
+                <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Buttons — all states and variants</p>
+              </div>
+              <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                <img src="/cases/coffee-street/ds/ds-inputs.jpg" alt="Input fields" className="w-full" />
+                <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Input fields</p>
+              </div>
+            </div>
+            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+              <img src="/cases/coffee-street/ds/ds-product-card.jpg" alt="Product card component variants" className="w-full" />
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Product card — all state variants</p>
+            </div>
+          </div>
         </div>
       </Section>
 
