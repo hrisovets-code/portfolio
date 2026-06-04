@@ -26,7 +26,7 @@ export function Header({ theme, onToggleTheme }: Props) {
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-100 dark:border-zinc-900">
       <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link to="/" className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-          Helen Risovets
+          Vladimir Efron
         </Link>
         <nav className="flex items-center gap-6">
           {navLink('/', 'Work')}

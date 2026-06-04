@@ -11,7 +11,7 @@ export function About() {
       >
         <p className="text-sm text-indigo-500 font-medium mb-3">About</p>
         <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mb-8">
-          Helen Risovets
+          Vladimir Efron
         </h1>
 
         <div className="space-y-10">
