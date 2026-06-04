@@ -11,10 +11,14 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   )
 }
 
-function Placeholder({ label, height = 'h-64' }: { label: string; height?: string }) {
+
+function ScreenCard({ src, alt, caption, imgHeight = 'h-auto' }: { src: string; alt: string; caption: string; imgHeight?: string }) {
   return (
-    <div className={`${height} rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-dashed border-zinc-200 dark:border-zinc-800 flex items-center justify-center`}>
-      <span className="text-sm text-zinc-400">{label}</span>
+    <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800 flex flex-col">
+      <div className={`${imgHeight} overflow-hidden shrink-0`}>
+        <img src={src} alt={alt} className="w-full object-cover object-top" />
+      </div>
+      <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900 shrink-0">{caption}</p>
     </div>
   )
 }
@@ -114,14 +118,8 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
                 <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Homepage — hero, weekly offers, popular products, app promo, blog</p>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-                  <img src="/cases/coffee-street/wireframes/wf-catalog.png" alt="Catalog wireframe" className="w-full" />
-                  <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Catalogue — category index</p>
-                </div>
-                <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-                  <img src="/cases/coffee-street/wireframes/wf-product.png" alt="Product page wireframe" className="w-full" />
-                  <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Product page — specs, add to cart, similar items</p>
-                </div>
+                <ScreenCard src="/cases/coffee-street/wireframes/wf-catalog.png" alt="Catalog wireframe" caption="Catalogue — category index" imgHeight="h-[320px]" />
+                <ScreenCard src="/cases/coffee-street/wireframes/wf-product.png" alt="Product page wireframe" caption="Product page — specs, add to cart, similar items" imgHeight="h-[320px]" />
               </div>
             </div>
           </div>
@@ -185,14 +183,8 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
               <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Header — 1440 / 1100 / 758 / 360px variants</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-                <img src="/cases/coffee-street/ds/ds-buttons.jpg" alt="Button component states" className="w-full" />
-                <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Buttons — all states and variants</p>
-              </div>
-              <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-                <img src="/cases/coffee-street/ds/ds-inputs.jpg" alt="Input fields" className="w-full" />
-                <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Input fields</p>
-              </div>
+              <ScreenCard src="/cases/coffee-street/ds/ds-buttons.jpg" alt="Button component states" caption="Buttons — all states and variants" imgHeight="h-[180px]" />
+              <ScreenCard src="/cases/coffee-street/ds/ds-inputs.jpg" alt="Input fields" caption="Input fields" imgHeight="h-[180px]" />
             </div>
             <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
               <img src="/cases/coffee-street/ds/ds-product-card.jpg" alt="Product card component variants" className="w-full" />
@@ -213,26 +205,14 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
           {/* Catalog + Product */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-              <img src="/cases/coffee-street/ui/catalog-1440.jpg" alt="Catalogue 1440px" className="w-full" />
-              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Catalogue — filters, product grid</p>
-            </div>
-            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-              <img src="/cases/coffee-street/ui/product-1440.jpg" alt="Product page 1440px" className="w-full" />
-              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Product page — specs, add to cart, similar items</p>
-            </div>
+            <ScreenCard src="/cases/coffee-street/ui/catalog-1440.jpg" alt="Catalogue 1440px" caption="Catalogue — filters, product grid" imgHeight="h-[540px]" />
+            <ScreenCard src="/cases/coffee-street/ui/product-1440.jpg" alt="Product page 1440px" caption="Product page — specs, add to cart, similar items" imgHeight="h-[540px]" />
           </div>
 
           {/* Cart + Orders */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-              <img src="/cases/coffee-street/ui/cart-1440.jpg" alt="Cart 1440px" className="w-full" />
-              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Cart</p>
-            </div>
-            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-              <img src="/cases/coffee-street/ui/orders-1440.jpg" alt="Orders 1440px" className="w-full" />
-              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Order history — personal account</p>
-            </div>
+            <ScreenCard src="/cases/coffee-street/ui/cart-1440.jpg" alt="Cart 1440px" caption="Cart" imgHeight="h-[320px]" />
+            <ScreenCard src="/cases/coffee-street/ui/orders-1440.jpg" alt="Orders 1440px" caption="Order history — personal account" imgHeight="h-[320px]" />
           </div>
 
           {/* Mobile */}
