@@ -23,7 +23,7 @@ export function Header({ theme, onToggleTheme }: Props) {
   )
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-900">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-900">
       <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link to="/" className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
           Vladimir Efron

@@ -14,7 +14,7 @@ export default function App() {
     <BrowserRouter>
       <div className="min-h-screen flex flex-col">
         <Header theme={theme} onToggleTheme={toggle} />
-        <div className="flex-1">
+        <div className="flex-1 pt-14">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects/:slug" element={<ProjectCase />} />
