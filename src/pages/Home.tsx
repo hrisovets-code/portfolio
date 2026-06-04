@@ -11,13 +11,12 @@ export function Home() {
         transition={{ duration: 0.5 }}
         className="mb-14"
       >
-        <p className="text-sm text-indigo-500 font-medium mb-3">Product Designer · UX/UI</p>
+        <p className="text-sm text-indigo-500 font-medium mb-3">Product Designer · Marketplace & Digital Products</p>
         <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 leading-tight">
-          I design digital products <br className="hidden sm:block" />
-          that are clear, useful, and delightful.
+          Vladimir Efron
         </h1>
         <p className="mt-4 text-zinc-500 dark:text-zinc-400 text-lg leading-relaxed max-w-xl">
-          4+ years in product design. I work at the intersection of research, strategy, and craft.
+          Product Designer with experience in marketplaces, e-commerce, and web apps. I work across the full design cycle — from discovery to handoff.
         </p>
       </motion.div>
 

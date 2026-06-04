@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion'
 
 const links = [
-  { label: 'Email', value: 'hello@example.com', href: 'mailto:hello@example.com' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/yourprofile', href: '#' },
-  { label: 'Behance', value: 'behance.net/yourprofile', href: '#' },
-  { label: 'Telegram', value: '@yourhandle', href: '#' },
+  { label: 'Email', value: 'efron.vl@gmail.com', href: 'mailto:efron.vl@gmail.com' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/designbyvl', href: 'https://linkedin.com/in/designbyvl' },
 ]
 
 export function Contacts() {
