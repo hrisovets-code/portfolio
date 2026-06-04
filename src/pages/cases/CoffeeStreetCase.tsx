@@ -109,12 +109,12 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-3">Brand palette → Material tokens</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {data.brandContext.colors.map((color, i) => (
-                <div key={i} className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                <div key={i} className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800 flex flex-col">
                   <div
-                    className="h-16"
+                    className="h-16 shrink-0"
                     style={{ backgroundColor: color.hex }}
                   />
-                  <div className="p-2 border-t border-zinc-100 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900">
+                  <div className="p-2 border-t border-zinc-100 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex-1">
                     <div className="text-xs font-medium text-zinc-800 dark:text-zinc-200">{color.name}</div>
                     <div className="text-xs text-zinc-400 font-mono">{color.hex}</div>
                     <div className="text-xs text-zinc-400 mt-0.5 leading-tight">{color.role}</div>
