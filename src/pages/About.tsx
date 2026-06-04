@@ -48,7 +48,7 @@ export function About() {
 
         <div className="flex items-start gap-6 mb-10">
           <img
-            src="/vladimir.png"
+            src="/vladimir.jpg"
             alt="Vladimir Efron"
             className="w-24 h-24 rounded-2xl object-cover shrink-0"
           />
