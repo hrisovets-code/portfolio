@@ -111,16 +111,22 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
         <div className="space-y-6">
           <div>
             <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Lo-fi / Wireframes</h3>
-            <p className="text-sm text-zinc-500 leading-relaxed mb-4">Information architecture and lo-fi wireframes for 20+ pages across 4 breakpoints (1440 / 1100 / 758 / 360 px). Benchmarking of 8 B2B platforms was done directly in Figma alongside the wireframes.</p>
-            <div className="space-y-3">
-              <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
-                <img src="/cases/coffee-street/wireframes/wf-home.png" alt="Homepage wireframe" className="w-full" />
-                <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Homepage — hero, weekly offers, popular products, app promo, blog</p>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <ScreenCard src="/cases/coffee-street/wireframes/wf-catalog.png" alt="Catalog wireframe" caption="Catalogue — category index" imgHeight="h-[320px]" />
-                <ScreenCard src="/cases/coffee-street/wireframes/wf-product.png" alt="Product page wireframe" caption="Product page — specs, add to cart, similar items" imgHeight="h-[320px]" />
-              </div>
+            <p className="text-sm text-zinc-500 leading-relaxed mb-4">Information architecture and lo-fi wireframes for 20+ pages across 4 breakpoints. Benchmarking of 8 B2B platforms was done directly in Figma alongside the wireframes.</p>
+            <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+              <img src="/cases/coffee-street/wireframes/wf-home.png" alt="Homepage wireframe" className="w-full" />
+              <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Homepage wireframe — hero, offers, popular, app promo, blog</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-3">Lo-fi → Hi-fi</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <ScreenCard src="/cases/coffee-street/wireframes/wf-product.png" alt="Product page wireframe" caption="Lo-fi — product page" imgHeight="h-[300px]" />
+              <ScreenCard src="/cases/coffee-street/ui/product-1440.jpg" alt="Product page hi-fi" caption="Hi-fi — product page" imgHeight="h-[300px]" />
+            </div>
+            <div className="grid grid-cols-2 gap-3 mt-3">
+              <ScreenCard src="/cases/coffee-street/wireframes/wf-cart.png" alt="Cart wireframe" caption="Lo-fi — cart & checkout" imgHeight="h-[260px]" />
+              <ScreenCard src="/cases/coffee-street/ui/cart-1440.jpg" alt="Cart hi-fi" caption="Hi-fi — cart & checkout" imgHeight="h-[260px]" />
             </div>
           </div>
         </div>
@@ -205,8 +211,8 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
           {/* Catalog + Product */}
           <div className="grid grid-cols-2 gap-3">
-            <ScreenCard src="/cases/coffee-street/ui/catalog-1440.jpg" alt="Catalogue 1440px" caption="Catalogue — filters, product grid" imgHeight="h-[540px]" />
-            <ScreenCard src="/cases/coffee-street/ui/product-1440.jpg" alt="Product page 1440px" caption="Product page — specs, add to cart, similar items" imgHeight="h-[540px]" />
+            <ScreenCard src="/cases/coffee-street/ui/catalog-1440.jpg" alt="Catalogue 1440px" caption="Catalogue — filters, product grid" imgHeight="h-[340px]" />
+            <ScreenCard src="/cases/coffee-street/ui/product-1440.jpg" alt="Product page 1440px" caption="Product page — specs, add to cart, similar items" imgHeight="h-[340px]" />
           </div>
 
           {/* Cart + Orders */}
@@ -235,17 +241,18 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
       {/* Block 6 — Results */}
       <Section title="Results">
-        <div className="space-y-5">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="space-y-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {data.results.map((r, i) => (
               <div key={i} className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800">
-                <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-1">{r.metric}</div>
+                <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">{r.metric}</div>
+                <div className="text-xs font-medium text-orange-400 uppercase tracking-widest mt-0.5 mb-2">{r.label}</div>
                 <div className="text-xs text-zinc-400 leading-relaxed">{r.desc}</div>
               </div>
             ))}
           </div>
-          <div>
-            <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">What I learned</h3>
+          <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-2">What I learned</h3>
             <p className="text-zinc-500 text-sm leading-relaxed">{data.reflection}</p>
           </div>
         </div>

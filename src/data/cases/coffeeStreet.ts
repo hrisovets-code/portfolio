@@ -82,9 +82,12 @@ export const coffeeStreet = {
   },
 
   results: [
-    { metric: 'Async orders', desc: 'Users can order at any hour without disturbing managers' },
-    { metric: 'Express delivery', desc: 'Emergency restock flow designed and validated in usability testing' },
-    { metric: 'Design system', desc: 'From zero — full component library covering all app screens' },
+    { metric: '20+', label: 'unique pages', desc: 'Full site: catalogue, product, cart, checkout, personal account, blog, contacts, auth' },
+    { metric: '4', label: 'breakpoints', desc: '1440 / 1100 / 758 / 360 px — designed in parallel, no post-hoc adaptation' },
+    { metric: '80+', label: 'components', desc: 'UI-kit built from zero: buttons, inputs, cards, modals, headers, all state variants' },
+    { metric: '6 mo', label: 'full cycle', desc: 'Research → IA → wireframes → hi-fi → developer handoff' },
+    { metric: '0→1', label: 'digital presence', desc: 'First online channel for a company that ran entirely on WhatsApp and phone calls' },
+    { metric: 'B2B', label: 'premium subscription', desc: 'Subscribers see exclusive pricing directly in the catalogue — unique regional feature' },
   ],
 
   reflection: `The research showed that KSS\'s real competitive advantage wasn\'t price — it was the responsiveness of their managers. The design challenge was preserving that personal feel inside an automated app. If I could redo this, I\'d push for more usability testing sessions earlier — especially on the order flow for large SKU catalogs.`,
