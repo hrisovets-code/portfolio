@@ -8,9 +8,9 @@ export const coffeeStreet = {
   team: 'Art director + PM + 2 devs + Designer',
   client: 'MEAH · Warsaw',
 
-  about: `Coffee Street Company (КСС) is a coffee supplies wholesale distributor serving 1,200+ coffee shops across Dagestan, Russia. They supply everything a bar needs — coffee beans, milk, cups, syrups, equipment — delivered on demand. All ordering happened through WhatsApp chats with managers.`,
+  about: `Coffee Street Service is a 19-year-old holding group — the largest supplier of coffee, equipment, and raw materials for the HoReCa industry in the North Caucasus region of Russia. The group runs 12+ brands: a B2B supply division, equipment repair center (Handyman), barista training school, coffee shop chain, and events agency. At its core, Coffee Street Service supplies 1,200+ cafés with everything from fresh-roasted beans and milk to cups, syrups, and espresso machines. All ordering happened via WhatsApp messages to personal managers.`,
 
-  problem: `No app, no order history, no stock visibility, no delivery tracking. Cafe owners and baristas texted managers at any hour — including 2 AM. KSS needed a mobile app to scale operations without losing the personal, responsive service that made them the market leader.`,
+  problem: `No app, no order history, no stock visibility, no delivery tracking. Café owners and baristas texted managers at any hour — including 2 AM. Delivery delays (cited by 10 of 18 interviewed users) meant cafés ran out of stock mid-service, losing revenue and guests. KSS needed a mobile ordering app to scale operations without losing the personal, responsive service that made them the regional market leader.`,
 
   myRole: `Full design cycle: translated research findings into user flows, wireframes, and high-fidelity UI. Built the design system from scratch following Material Design 3. Handled developer handoff and reviewed production output. Collaborated daily with the art director and PM.`,
 
