@@ -12,14 +12,14 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'project-one',
-    title: 'Project One',
-    subtitle: 'Product redesign · B2C mobile app',
-    year: '2025',
-    role: 'Lead Product Designer',
+    slug: 'coffee-street',
+    title: 'Coffee Street Company',
+    subtitle: 'B2B mobile ordering app · From zero',
+    year: '2025–2026',
+    role: 'UX/UI Designer',
     platform: 'iOS / Android',
-    team: 'Solo designer + 3 devs + PM',
-    coverColor: 'from-indigo-500/20 to-violet-500/20',
+    team: 'Art director + PM + 2 devs',
+    coverColor: 'from-orange-500/20 to-amber-500/20',
     tags: ['UX Research', 'UI', 'Design System'],
   },
   {
