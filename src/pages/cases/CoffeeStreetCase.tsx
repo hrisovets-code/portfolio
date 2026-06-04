@@ -114,7 +114,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
                     className="h-16"
                     style={{ backgroundColor: color.hex }}
                   />
-                  <div className="p-2 bg-white dark:bg-zinc-900">
+                  <div className="p-2 border-t border-zinc-100 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900">
                     <div className="text-xs font-medium text-zinc-800 dark:text-zinc-200">{color.name}</div>
                     <div className="text-xs text-zinc-400 font-mono">{color.hex}</div>
                     <div className="text-xs text-zinc-400 mt-0.5 leading-tight">{color.role}</div>
