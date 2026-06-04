@@ -76,18 +76,21 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
         <div className="space-y-6">
           <div>
             <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Lo-fi / Wireframes</h3>
-            <Placeholder label="Wireframes — order flow, catalogue, delivery scheduling" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Iterations</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Placeholder label="V1 — order flow" height="h-44" />
-                <p className="text-xs text-zinc-400 mt-2 text-center">V1 — flat product list, no stock indicator</p>
+            <p className="text-sm text-zinc-500 leading-relaxed mb-4">Information architecture and lo-fi wireframes for 20+ pages across 4 breakpoints (1440 / 1100 / 758 / 360 px). Benchmarking of 8 B2B platforms was done directly in Figma alongside the wireframes.</p>
+            <div className="space-y-3">
+              <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                <img src="/cases/coffee-street/wireframes/wf-home.png" alt="Homepage wireframe" className="w-full" />
+                <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Homepage — hero, weekly offers, popular products, app promo, blog</p>
               </div>
-              <div>
-                <Placeholder label="V2 — order flow" height="h-44" />
-                <p className="text-xs text-zinc-400 mt-2 text-center">V2 — stock badges + alternative suggestions</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                  <img src="/cases/coffee-street/wireframes/wf-catalog.png" alt="Catalog wireframe" className="w-full" />
+                  <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Catalogue — category index</p>
+                </div>
+                <div className="rounded-xl overflow-hidden border border-zinc-100 dark:border-zinc-800">
+                  <img src="/cases/coffee-street/wireframes/wf-product.png" alt="Product page wireframe" className="w-full" />
+                  <p className="text-xs text-zinc-400 text-center py-2 bg-zinc-50 dark:bg-zinc-900">Product page — specs, add to cart, similar items</p>
+                </div>
               </div>
             </div>
           </div>
