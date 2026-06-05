@@ -88,44 +88,49 @@ const UF_STEPS = [
   { key: 'product' as UfScreen, label: 'Select',    desc: 'Check specs, set quantity' },
   { key: 'cart'    as UfScreen, label: 'Checkout',  desc: 'Confirm and schedule delivery' },
 ]
-// Screen-height px offset to scroll (negative = scroll down)
 const UF_SCENE: UfAct[] = [
-  { screen: 'home',    scrollTo: 0,    hold: 2200 },  // app loads
-  { scrollTo: -170,                    hold: 1200 },  // scroll homepage
-  { tap: { x: 50, y: 64 },            hold: 800  },  // tap "Каталог"
-  { screen: 'catalog', scrollTo: 0,    hold: 1700 },  // catalog opens
-  { scrollTo: -220,                    hold: 1200 },  // scroll to product card
-  { tap: { x: 50, y: 57 },            hold: 800  },  // tap product card
-  { screen: 'product', scrollTo: 0,    hold: 1700 },  // product opens
-  { scrollTo: -280,                    hold: 1200 },  // scroll to CTA
-  { tap: { x: 50, y: 87 },            hold: 800  },  // tap "В корзину"
-  { screen: 'cart',    scrollTo: 0,    hold: 2600 },  // cart
+  { screen: 'home',    hold: 2200 },
+  { scrollTo: -170,   hold: 1200 },
+  { tap: { x: 50, y: 64 }, hold: 800 },
+  { screen: 'catalog', hold: 1700 },
+  { scrollTo: -220,   hold: 1200 },
+  { tap: { x: 50, y: 57 }, hold: 800 },
+  { screen: 'product', hold: 1700 },
+  { scrollTo: -280,   hold: 1200 },
+  { tap: { x: 50, y: 87 }, hold: 800 },
+  { screen: 'cart',   hold: 2600 },
 ]
 
 function UserFlowSection() {
+  // One motion value per screen — when transitioning, the exiting screen keeps
+  // its own scroll offset (no snap-to-zero flash), the entering screen starts at 0.
+  const scrollHome    = useMotionValue(0)
+  const scrollCatalog = useMotionValue(0)
+  const scrollProduct = useMotionValue(0)
+  const scrollCart    = useMotionValue(0)
+  const scrollsRef = useRef({ home: scrollHome, catalog: scrollCatalog, product: scrollProduct, cart: scrollCart })
+
   const [actIdx, setActIdx] = useState(0)
   const [currentScreen, setCurrentScreen] = useState<UfScreen>('home')
   const [showTap, setShowTap] = useState(false)
   const [tapPos, setTapPos] = useState({ x: 50, y: 70 })
-  const scrollY = useMotionValue(0)
-  // Ref to control "app opens" vs slide-in entrance animation
   const initialLoadRef = useRef(true)
 
   useEffect(() => {
     const act = UF_SCENE[actIdx]
+    const scrolls = scrollsRef.current
     const timers: ReturnType<typeof setTimeout>[] = []
     let rafId: number | null = null
 
-    // Switch screen
     if (act.screen) {
       if (act.screen !== 'home') initialLoadRef.current = false
+      scrolls[act.screen].set(0)   // reset only the incoming screen; exiting keeps its offset
       setCurrentScreen(act.screen)
-      scrollY.set(0)
     }
 
-    // Animate scroll with cubic ease-in-out
     if (act.scrollTo !== undefined) {
-      const startY = scrollY.get()
+      const scroll = scrolls[currentScreen]
+      const startY = scroll.get()
       const endY = act.scrollTo
       if (Math.abs(endY - startY) > 1) {
         const DUR = 1050
@@ -133,21 +138,19 @@ function UserFlowSection() {
         const tick = (now: number) => {
           const p = Math.min((now - t0) / DUR, 1)
           const e = p < 0.5 ? 4*p*p*p : (p-1)*(2*p-2)*(2*p-2)+1
-          scrollY.set(startY + (endY - startY) * e)
+          scroll.set(startY + (endY - startY) * e)
           if (p < 1) rafId = requestAnimationFrame(tick)
         }
         rafId = requestAnimationFrame(tick)
       }
     }
 
-    // Tap indicator
     if (act.tap) {
       const delay = act.scrollTo !== undefined ? 1100 : 80
       timers.push(setTimeout(() => { setTapPos(act.tap!); setShowTap(true) }, delay))
       timers.push(setTimeout(() => setShowTap(false), delay + 620))
     }
 
-    // Advance
     timers.push(setTimeout(() => {
       if (actIdx === UF_SCENE.length - 1) initialLoadRef.current = true
       setActIdx(i => (i + 1) % UF_SCENE.length)
@@ -230,7 +233,7 @@ function UserFlowSection() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.32, ease: 'easeIn' } }}
                     transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ y: scrollY, width: '100%', position: 'absolute', top: 0, left: 0 }}
+                    style={{ y: scrollsRef.current[currentScreen], width: '100%', position: 'absolute', top: 0, left: 0 }}
                   />
                 </AnimatePresence>
 
