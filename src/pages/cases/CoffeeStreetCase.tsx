@@ -225,11 +225,11 @@ function UserFlowSection() {
                     key={currentScreen}
                     src={UF_SCREENS[currentScreen]}
                     alt={currentScreen}
-                    // "App opens" = fade+scale up; screen change = slide from right
-                    initial={initialLoadRef.current ? { opacity: 0, scale: 0.96 } : { x: 280, opacity: 0.6 }}
-                    animate={{ x: 0, opacity: 1, scale: 1 }}
-                    exit={{ x: -280, opacity: 0 }}
-                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    // Crossfade + subtle zoom — no slide = no black gaps at edges
+                    initial={{ opacity: 0, scale: initialLoadRef.current ? 1.06 : 1.04 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.32, ease: 'easeIn' } }}
+                    transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
                     style={{ y: scrollY, width: '100%', position: 'absolute', top: 0, left: 0 }}
                   />
                 </AnimatePresence>
