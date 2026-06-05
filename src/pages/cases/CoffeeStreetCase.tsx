@@ -219,8 +219,8 @@ function UserFlowSection() {
               <div style={{ width: 64, height: 14, background: '#000', borderRadius: 8, margin: '0 auto 12px', border: '1px solid rgba(255,255,255,.07)' }} />
 
               {/* Screen area */}
-              <div style={{ borderRadius: 24, overflow: 'hidden', position: 'relative', height: 494, background: '#000' }}>
-                <AnimatePresence mode="wait">
+              <div style={{ borderRadius: 24, overflow: 'hidden', position: 'relative', height: 494, background: '#000', transform: 'translateZ(0)' }}>
+                <AnimatePresence mode="sync">
                   <motion.img
                     key={currentScreen}
                     src={UF_SCREENS[currentScreen]}
@@ -376,9 +376,9 @@ function PhoneDemoPlayer() {
         </div>
 
         {/* Screen */}
-        <div style={{ borderRadius: 32, overflow: 'hidden', height: SCREEN_H + 14, background: '#fff', position: 'relative' }}>
+        <div style={{ borderRadius: 32, overflow: 'hidden', height: SCREEN_H + 14, background: '#fff', position: 'relative', transform: 'translateZ(0)' }}>
           <div style={{ height: 14, background: '#fff', position: 'relative', zIndex: 2 }} />
-          <div ref={screenRef} style={{ position: 'relative', height: SCREEN_H, overflow: 'hidden' }}>
+          <div ref={screenRef} style={{ position: 'relative', height: SCREEN_H, overflow: 'hidden', transform: 'translateZ(0)' }}>
             <AnimatePresence initial={false} custom={dir} mode="sync">
               <motion.img
                 key={idx}
