@@ -71,6 +71,151 @@ const slideVariants = {
   exit: (d: number) => ({ x: d * -270, opacity: 0 }),
 }
 
+// ── User Flow ──
+function UserFlowSection() {
+  const steps = [
+    { src: '/cases/coffee-street/ui/home-360.jpg',    label: 'Open App',  desc: 'Dashboard with quick-reorder shortcuts' },
+    { src: '/cases/coffee-street/ui/catalog-360.jpg', label: 'Browse',    desc: 'Filter by category, brand, or weight' },
+    { src: '/cases/coffee-street/ui/product-360.jpg', label: 'Select',    desc: 'Pick SKU, set quantity, check stock' },
+    { src: '/cases/coffee-street/ui/cart-360.jpg',    label: 'Checkout',  desc: 'Confirm order and schedule delivery' },
+  ]
+  const [idx, setIdx] = useState(0)
+  const [dir, setDir] = useState(1)
+  const [showTap, setShowTap] = useState(false)
+
+  useEffect(() => {
+    setShowTap(false)
+    const t1 = setTimeout(() => setShowTap(true), 2000)
+    const t2 = setTimeout(() => {
+      setShowTap(false)
+      setDir(1)
+      setIdx(i => (i + 1) % steps.length)
+    }, 3400)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [idx])
+
+  return (
+    <section style={{ background: '#0a0a0a', color: W90 }}>
+      <div style={{ padding: '120px 72px 140px', maxWidth: 1380, margin: '0 auto' }}>
+        <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase', color: W30, display: 'block', marginBottom: 12 }}>
+          08 / User Flow
+        </span>
+        <div style={{ fontFamily: bebas, fontSize: 'clamp(48px, 6vw, 86px)', color: '#fff', lineHeight: 1, letterSpacing: '0.02em', marginBottom: 16 }}>
+          4 STEPS.<br />ONE ORDER.
+        </div>
+        <p style={{ fontSize: 16, color: W50, maxWidth: '50ch', marginBottom: 80, lineHeight: 1.75 }}>
+          A B2B buyer opens the app, browses the catalogue, selects a product, and places a wholesale order — in under 30 seconds.
+        </p>
+
+        <div style={{ display: 'flex', gap: 120, alignItems: 'flex-start', justifyContent: 'center' }}>
+          {/* Step list on the left */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, paddingTop: 24 }}>
+            {steps.map((step, i) => (
+              <div key={step.label} style={{ display: 'flex', alignItems: 'flex-start', gap: 20, paddingBottom: 40, position: 'relative' }}>
+                {/* Vertical connector line */}
+                {i < steps.length - 1 && (
+                  <div style={{
+                    position: 'absolute', left: 17, top: 36, width: 2, height: 40,
+                    background: i < idx ? Y : 'rgba(255,255,255,.08)',
+                    transition: 'background 0.4s',
+                  }} />
+                )}
+                {/* Circle */}
+                <div style={{
+                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  background: i === idx ? Y : i < idx ? 'rgba(255,210,48,0.15)' : 'rgba(255,255,255,.06)',
+                  border: i === idx ? 'none' : i < idx ? '1.5px solid rgba(255,210,48,0.35)' : '1px solid rgba(255,255,255,.1)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'all 0.4s ease',
+                  fontFamily: mono, fontSize: 12, fontWeight: 700,
+                  color: i === idx ? DARK : i < idx ? 'rgba(255,210,48,0.7)' : 'rgba(255,255,255,.3)',
+                }}>
+                  {i < idx ? '✓' : i + 1}
+                </div>
+                {/* Text */}
+                <div>
+                  <span style={{
+                    fontFamily: bebas, fontSize: 20, letterSpacing: '0.04em',
+                    color: i === idx ? W90 : i < idx ? W50 : W30,
+                    display: 'block', lineHeight: 1.1, transition: 'color 0.4s',
+                  }}>
+                    {step.label}
+                  </span>
+                  <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.12em', color: 'rgba(255,255,255,.25)', display: 'block', marginTop: 4, maxWidth: '22ch' }}>
+                    {step.desc}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Phone */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{
+              width: 240,
+              background: '#111',
+              borderRadius: 44,
+              padding: '16px 10px 28px',
+              boxShadow: '0 50px 100px -20px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.1), 0 0 80px -15px rgba(255,210,48,0.1)',
+            }}>
+              <div style={{ width: 64, height: 14, background: '#000', borderRadius: 8, margin: '0 auto 12px', border: '1px solid rgba(255,255,255,.07)' }} />
+              <div style={{ borderRadius: 24, overflow: 'hidden', position: 'relative', height: 494, background: '#000' }}>
+                <AnimatePresence custom={dir} mode="wait">
+                  <motion.img
+                    key={idx}
+                    src={steps[idx].src}
+                    alt={steps[idx].label}
+                    custom={dir}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ width: '100%', position: 'absolute', top: 0, left: 0 }}
+                  />
+                </AnimatePresence>
+
+                <AnimatePresence>
+                  {showTap && (
+                    <motion.div
+                      key="tap"
+                      initial={{ scale: 0.2, opacity: 0 }}
+                      animate={{ scale: [0.2, 1.05, 0.95], opacity: [0, 1, 0.85] }}
+                      exit={{ scale: 1.7, opacity: 0, transition: { duration: 0.4, ease: 'easeIn' } }}
+                      transition={{ duration: 0.45, ease: 'easeOut' }}
+                      style={{
+                        position: 'absolute', bottom: 52,
+                        left: 'calc(50% - 26px)',
+                        width: 52, height: 52,
+                        borderRadius: '50%',
+                        background: 'rgba(255,210,48,0.25)',
+                        border: `2px solid ${Y}`,
+                        pointerEvents: 'none',
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
+              </div>
+              <div style={{ width: 90, height: 4, background: 'rgba(255,255,255,.2)', borderRadius: 2, margin: '16px auto 0' }} />
+            </div>
+
+            {/* Dots */}
+            <div style={{ display: 'flex', gap: 8, marginTop: 24 }}>
+              {steps.map((_, i) => (
+                <div key={i} style={{
+                  width: i === idx ? 24 : 6, height: 6, borderRadius: 3,
+                  background: i === idx ? Y : 'rgba(255,255,255,.18)',
+                  transition: 'all 0.35s ease',
+                }} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function PhoneDemoPlayer() {
   const SCREEN_H = 512
   const [idx, setIdx] = useState(0)
@@ -849,13 +994,15 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
         </div>
       </section>
 
+      <UserFlowSection />
+
       {/* ════════════════════════════════════════
           RESULTS
       ════════════════════════════════════════ */}
       <section style={{ background: CREAM, color: INK }}>
         <YellowLine />
         <div style={{ padding: '100px 72px 100px', maxWidth: 1380, margin: '0 auto' }}>
-          <Eyebrow light>08 / Outcome</Eyebrow>
+          <Eyebrow light>09 / Outcome</Eyebrow>
           <BigTitle light>Delivered.<br />Ready to Ship.</BigTitle>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, marginTop: 64, marginBottom: 72 }}>
