@@ -82,7 +82,9 @@ export function ProjectCase() {
     )
   }
 
-  const isCoffeeStreet = slug === 'coffee-street'
+  if (slug === 'coffee-street') {
+    return <CoffeeStreetCase data={coffeeStreet} />
+  }
 
   return (
     <main className="max-w-4xl mx-auto px-6 pb-24">
@@ -95,41 +97,7 @@ export function ProjectCase() {
         </Link>
 
         <motion.div {...fade(0.05)}>
-          {isCoffeeStreet ? (
-            <div className="h-80 rounded-xl overflow-hidden relative bg-[#272727] select-none">
-              {/* Desktop browser mockup with auto-scroll */}
-              <div className="absolute left-5 top-5 bottom-5 w-[62%] rounded-lg overflow-hidden shadow-2xl border border-white/10 flex flex-col">
-                <div className="h-6 bg-zinc-950 flex items-center px-2 gap-1.5 shrink-0">
-                  <span className="w-2 h-2 rounded-full bg-white/20" />
-                  <span className="w-2 h-2 rounded-full bg-white/20" />
-                  <span className="w-2 h-2 rounded-full bg-white/20" />
-                </div>
-                <div className="flex-1 overflow-hidden">
-                  <motion.img
-                    src="/cases/coffee-street/ui/home-1440.jpg"
-                    alt=""
-                    className="w-full"
-                    animate={{ y: ['0%', '-82%', '0%'] }}
-                    transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', times: [0, 0.85, 1] }}
-                  />
-                </div>
-              </div>
-              {/* Mobile mockup with auto-scroll (offset timing) */}
-              <div className="absolute right-5 top-10 bottom-10 w-[22%] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/15">
-                <motion.img
-                  src="/cases/coffee-street/ui/home-360.jpg"
-                  alt=""
-                  className="w-full"
-                  animate={{ y: ['0%', '-80%', '0%'] }}
-                  transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', times: [0, 0.85, 1], delay: 2 }}
-                />
-              </div>
-              {/* Brand yellow accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#FFD230]" />
-            </div>
-          ) : (
-            <Placeholder label="Hero image / composed scene" height="h-80" />
-          )}
+          <Placeholder label="Hero image / composed scene" height="h-80" />
         </motion.div>
 
         <motion.div {...fade(0.1)} className="mt-6">
@@ -149,7 +117,7 @@ export function ProjectCase() {
         </motion.div>
       </motion.div>
 
-      {isCoffeeStreet ? <CoffeeStreetCase data={coffeeStreet} /> : <GenericCase />}
+      <GenericCase />
 
       <div className="pt-8 flex justify-between items-center border-t border-zinc-100 dark:border-zinc-900">
         <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
