@@ -1,4 +1,11 @@
 import { motion } from 'framer-motion'
+import { useIsMobile } from '../hooks/useIsMobile'
+
+const Y = '#FFD230'
+const W50 = 'rgba(255,255,255,0.50)'
+const W90 = 'rgba(255,255,255,0.90)'
+const bebas = "'Bebas Neue', sans-serif"
+const mono = "'JetBrains Mono', monospace"
 
 const skills = [
   'Product Design', 'UI Design', 'UX Design', 'Design Systems', 'Figma',
@@ -10,7 +17,7 @@ const skills = [
 
 const experience = [
   {
-    role: 'Lead Product Designer · Product Design Lead & Coordination',
+    role: 'Lead Product Designer',
     company: 'Private Client · Remote',
     period: 'Jan 2026 — Present',
     description: 'Marketplace for second-hand auto parts — end-to-end product design from zero, design system, and client-facing delivery.',
@@ -36,82 +43,116 @@ const experience = [
 ]
 
 export function About() {
+  const m = useIsMobile()
+
   return (
-    <main className="max-w-4xl mx-auto px-6 py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="max-w-2xl"
-      >
-        <p className="text-sm text-indigo-500 font-medium mb-3">About</p>
+    <div style={{ background: '#111', minHeight: '100vh' }}>
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
 
-        <div className="flex items-start gap-6 mb-10">
-          <img
-            src="/vladimir.jpg"
-            alt="Vladimir Efron"
-            className="w-24 h-24 rounded-2xl object-cover shrink-0"
-          />
-          <div>
-            <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-              Vladimir Efron
-            </h1>
-            <p className="text-zinc-400 mt-1 text-sm">Product Designer · Warsaw, Poland</p>
-          </div>
-        </div>
+        {/* Hero */}
+        <div style={{
+          maxWidth: 1380, margin: '0 auto',
+          padding: m ? '72px 20px 56px' : '112px 48px 72px',
+          borderBottom: '1px solid rgba(255,255,255,0.07)',
+        }}>
+          <span style={{
+            fontFamily: mono, fontSize: 10, letterSpacing: '0.28em',
+            textTransform: 'uppercase', color: Y, display: 'block', marginBottom: 24,
+          }}>
+            About
+          </span>
+          <h1 style={{
+            fontFamily: bebas, fontSize: 'clamp(72px, 10vw, 140px)',
+            lineHeight: 0.87, letterSpacing: '0.01em', color: '#fff', margin: '0 0 48px',
+          }}>
+            Vladimir<br />Efron
+          </h1>
 
-        <div className="space-y-10">
-          {/* Bio */}
-          <div className="space-y-4 text-zinc-500 dark:text-zinc-400 leading-relaxed">
-            <p>
-              Product Designer with commercial experience across digital products, marketplace interfaces, e-commerce, and web applications.
-            </p>
-            <p>
-              I work across the full design cycle — from early discovery and user flows to high-fidelity UI, design systems, responsive layouts, and developer handoff. My focus is on how a product works and what problems it solves, not just how it looks.
-            </p>
-            <p>
-              I am comfortable with ambiguity, fast iteration cycles, and cross-functional collaboration. Open to remote roles in product and tech companies.
-            </p>
-          </div>
-
-          {/* Experience */}
-          <div>
-            <h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-4">Experience</h2>
-            <div className="space-y-5">
-              {experience.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}
-                  className="border-l-2 border-zinc-100 dark:border-zinc-800 pl-4"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="text-sm font-medium text-zinc-800 dark:text-zinc-200">{item.role}</div>
-                      <div className="text-sm text-zinc-400 mt-0.5">{item.company}</div>
-                    </div>
-                    <span className="text-xs text-zinc-400 shrink-0 mt-0.5">{item.period}</span>
-                  </div>
-                  <p className="text-sm text-zinc-500 mt-1.5 leading-relaxed">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Skills */}
-          <div>
-            <h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-3">Skills</h2>
-            <div className="flex flex-wrap gap-2">
-              {skills.map(skill => (
-                <span key={skill} className="text-sm px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800">
-                  {skill}
-                </span>
-              ))}
+          {/* Photo + bio */}
+          <div style={{ display: 'flex', gap: m ? 24 : 48, alignItems: 'flex-start', flexDirection: m ? 'column' : 'row' }}>
+            <img
+              src="/vladimir.jpg"
+              alt="Vladimir Efron"
+              style={{ width: m ? 72 : 96, height: m ? 72 : 96, borderRadius: 6, objectFit: 'cover', flexShrink: 0, border: '1px solid rgba(255,255,255,0.1)' }}
+            />
+            <div style={{ maxWidth: '64ch' }}>
+              <p style={{ fontSize: m ? 15 : 17, lineHeight: 1.85, color: W50, margin: '0 0 16px' }}>
+                Product Designer with commercial experience across digital products, marketplace
+                interfaces, e-commerce, and web applications.
+              </p>
+              <p style={{ fontSize: m ? 15 : 17, lineHeight: 1.85, color: W50, margin: '0 0 16px' }}>
+                I work across the full design cycle — from early discovery and user flows to
+                high-fidelity UI, design systems, responsive layouts, and developer handoff.
+                My focus is on how a product works and what problems it solves, not just how it looks.
+              </p>
+              <p style={{ fontSize: m ? 15 : 17, lineHeight: 1.85, color: W50, margin: 0 }}>
+                Comfortable with ambiguity, fast iteration cycles, and cross-functional collaboration.
+                Open to remote roles in product and tech companies.
+              </p>
             </div>
           </div>
         </div>
+
+        {/* Experience */}
+        <div style={{ maxWidth: 1380, margin: '0 auto', padding: m ? '48px 20px' : '80px 48px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+          <span style={{
+            fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.22)', display: 'block', marginBottom: 40,
+          }}>
+            Experience
+          </span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {experience.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.35, delay: 0.08 + i * 0.07 }}
+                style={{
+                  display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr',
+                  gap: m ? 8 : 48,
+                  padding: m ? '20px 0' : '28px 0',
+                  borderBottom: '1px solid rgba(255,255,255,0.07)',
+                  borderLeft: `2px solid ${i === 0 ? Y : 'rgba(255,255,255,0.08)'}`,
+                  paddingLeft: 20,
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: m ? 14 : 15, fontWeight: 600, color: W90, marginBottom: 4 }}>{item.role}</div>
+                  <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>{item.company}</div>
+                </div>
+                <div>
+                  <div style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.14em', color: Y, textTransform: 'uppercase', marginBottom: 8 }}>{item.period}</div>
+                  <div style={{ fontSize: m ? 13 : 14, lineHeight: 1.65, color: W50 }}>{item.description}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Skills */}
+        <div style={{ maxWidth: 1380, margin: '0 auto', padding: m ? '48px 20px 72px' : '80px 48px 120px' }}>
+          <span style={{
+            fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.22)', display: 'block', marginBottom: 32,
+          }}>
+            Skills
+          </span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {skills.map(skill => (
+              <span key={skill} style={{
+                fontFamily: mono, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.4)', padding: '7px 14px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(255,255,255,0.03)',
+              }}>
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+
       </motion.div>
-    </main>
+    </div>
   )
 }
