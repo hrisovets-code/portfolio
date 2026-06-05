@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion'
 import { coffeeStreet } from '../../data/cases/coffeeStreet'
 
@@ -594,15 +594,32 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 2, background: W08, marginBottom: 100 }}>
             {[
-              { src: '/cases/coffee-street/wireframes/wf-home.png', label: 'Homepage' },
-              { src: '/cases/coffee-street/wireframes/wf-product.png', label: 'Product page' },
-              { src: '/cases/coffee-street/wireframes/wf-cart.png', label: 'Cart & checkout' },
-            ].map(({ src, label }) => (
+              {
+                src: '/cases/coffee-street/wireframes/wf-home.png',
+                label: 'Homepage',
+                note: 'Hero anchors the value prop above the fold. Reorder and Recent orders are the primary actions for returning B2B buyers, so they appear without scrolling.',
+              },
+              {
+                src: '/cases/coffee-street/wireframes/wf-product.png',
+                label: 'Product page',
+                note: 'SKU attributes in a sticky sidebar; the "Add to cart" CTA stays in view regardless of scroll depth — critical for large product catalogs.',
+              },
+              {
+                src: '/cases/coffee-street/wireframes/wf-cart.png',
+                label: 'Cart & checkout',
+                note: 'Progressive accordion hides inactive steps — wholesale orders with multiple delivery addresses stay manageable without overwhelming the buyer.',
+              },
+            ].map(({ src, label, note }) => (
               <div key={label} style={{ background: DARK2, display: 'flex', flexDirection: 'column' }}>
                 <img src={src} alt={label} style={{ width: '100%', height: 'auto', display: 'block' }} />
-                <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,.4)', padding: '12px 16px' }}>
-                  {label}
-                </span>
+                <div style={{ padding: '16px 20px 28px' }}>
+                  <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,.4)', display: 'block', marginBottom: 10 }}>
+                    {label}
+                  </span>
+                  <p style={{ fontSize: 13, lineHeight: 1.7, color: 'rgba(255,255,255,.3)', margin: 0 }}>
+                    {note}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -704,6 +721,70 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
       </section>
 
       {/* ════════════════════════════════════════
+          ADAPTIVE DESIGN
+      ════════════════════════════════════════ */}
+      <section style={{ background: '#111', color: W90, overflow: 'hidden' }}>
+        <div style={{ padding: '120px 72px 120px', maxWidth: 1380, margin: '0 auto' }}>
+          <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase', color: W30, display: 'block', marginBottom: 12 }}>
+            06 / Adaptive Design
+          </span>
+          <div style={{ fontFamily: bebas, fontSize: 'clamp(48px, 6vw, 86px)', color: '#fff', lineHeight: 1, letterSpacing: '0.02em', marginBottom: 24 }}>
+            ONE DESIGN.<br />ANY SCREEN.
+          </div>
+          <p style={{ fontSize: 16, color: W50, maxWidth: '52ch', marginBottom: 72, lineHeight: 1.75 }}>
+            The same catalogue page — built for 1440px desktop and 360px mobile. Every layout decision had to work across 4 breakpoints with the same component library.
+          </p>
+
+          {/* Side-by-side: browser + phone */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 48 }}>
+            {/* Desktop browser mockup */}
+            <div style={{ flex: '0 0 67%', maxWidth: '67%' }}>
+              <div style={{
+                borderRadius: 12, overflow: 'hidden',
+                boxShadow: '0 40px 80px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07)',
+              }}>
+                <div style={{ background: '#252528', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid rgba(255,255,255,.06)' }}>
+                  <div style={{ display: 'flex', gap: 5 }}>
+                    {['#FF5F57', '#FEBC2E', '#28C840'].map(c => (
+                      <span key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c, display: 'block' }} />
+                    ))}
+                  </div>
+                  <div style={{ flex: 1, height: 22, background: 'rgba(255,255,255,.06)', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', maxWidth: 260, margin: '0 auto', fontFamily: mono, fontSize: 10, color: 'rgba(255,255,255,.3)', letterSpacing: '0.04em' }}>
+                    coffee-street.com/catalog
+                  </div>
+                </div>
+                <img src="/cases/coffee-street/ui/catalog-1440.jpg" alt="Catalogue 1440px" style={{ width: '100%', display: 'block' }} />
+              </div>
+              <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: W30 }}>1440px · Desktop</span>
+                <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.08)' }} />
+              </div>
+            </div>
+
+            {/* Phone static mockup */}
+            <div style={{ flex: '1 1 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{
+                width: '100%', maxWidth: 180,
+                background: '#0a0a0a',
+                borderRadius: 32,
+                padding: '14px 8px 20px',
+                boxShadow: '0 40px 70px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1), inset 0 0 0 1px rgba(255,255,255,0.03)',
+              }}>
+                {/* Dynamic island */}
+                <div style={{ width: 56, height: 12, background: '#000', borderRadius: 8, margin: '0 auto 10px', border: '1px solid rgba(255,255,255,.07)' }} />
+                <div style={{ borderRadius: 20, overflow: 'hidden' }}>
+                  <img src="/cases/coffee-street/ui/catalog-360.jpg" alt="Catalogue mobile" style={{ width: '100%', display: 'block' }} />
+                </div>
+              </div>
+              <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: W30 }}>360px · Mobile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
           FINAL UI SCREENS
       ════════════════════════════════════════ */}
       <section style={{ background: '#181818', paddingBottom: 0, overflow: 'hidden' }}>
@@ -712,7 +793,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,210,48,0.12) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
           <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase', color: W30, display: 'block', marginBottom: 12, position: 'relative' }}>
-            06 / Final UI
+            07 / Final UI
           </span>
           <div style={{ fontFamily: bebas, fontSize: 'clamp(56px, 7vw, 100px)', color: '#fff', lineHeight: 1, letterSpacing: '0.02em', marginBottom: 8, position: 'relative' }}>
             FINAL DESIGN
@@ -774,7 +855,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
       <section style={{ background: CREAM, color: INK }}>
         <YellowLine />
         <div style={{ padding: '100px 72px 100px', maxWidth: 1380, margin: '0 auto' }}>
-          <Eyebrow light>07 / Outcome</Eyebrow>
+          <Eyebrow light>08 / Outcome</Eyebrow>
           <BigTitle light>Delivered.<br />Ready to Ship.</BigTitle>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, marginTop: 64, marginBottom: 72 }}>
@@ -804,15 +885,44 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             </p>
           </div>
 
-          {/* Bottom nav */}
-          <div style={{ marginTop: 80, paddingTop: 40, borderTop: `1px solid ${CREAM2}`, display: 'flex', alignItems: 'center' }}>
-            <Link to="/" style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              fontFamily: mono, fontSize: 10, letterSpacing: '0.2em',
-              textTransform: 'uppercase', color: D35, textDecoration: 'none',
-            }}>
-              <ArrowLeft size={12} /> All projects
+          {/* Next case CTA */}
+          <div style={{ marginTop: 100 }}>
+            <Link to="/projects/project-two" style={{ display: 'block', textDecoration: 'none' }}>
+              <div style={{
+                background: DARK, borderRadius: 6,
+                padding: '56px 64px',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                transition: 'background 0.2s',
+              }}
+                onMouseEnter={e => (e.currentTarget.style.background = '#333')}
+                onMouseLeave={e => (e.currentTarget.style.background = DARK)}
+              >
+                <div>
+                  <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', display: 'block', marginBottom: 14 }}>
+                    Next case
+                  </span>
+                  <span style={{ fontFamily: bebas, fontSize: 'clamp(36px, 5vw, 64px)', color: '#fff', lineHeight: 1, letterSpacing: '0.02em', display: 'block' }}>
+                    Project Two
+                  </span>
+                  <span style={{ fontSize: 15, color: 'rgba(255,255,255,.4)', display: 'block', marginTop: 10 }}>
+                    Zero-to-one · B2B web platform
+                  </span>
+                </div>
+                <div style={{ width: 56, height: 56, borderRadius: '50%', background: Y, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <ArrowRight size={22} color={DARK} />
+                </div>
+              </div>
             </Link>
+
+            <div style={{ marginTop: 40, paddingTop: 32, borderTop: `1px solid ${CREAM2}` }}>
+              <Link to="/" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                fontFamily: mono, fontSize: 10, letterSpacing: '0.2em',
+                textTransform: 'uppercase', color: D35, textDecoration: 'none',
+              }}>
+                <ArrowLeft size={12} /> All projects
+              </Link>
+            </div>
           </div>
         </div>
       </section>
