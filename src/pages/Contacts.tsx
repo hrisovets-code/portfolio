@@ -1,10 +1,4 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useIsMobile } from '../hooks/useIsMobile'
-
-const Y = '#FFD230'
-const bebas = "'Bebas Neue', sans-serif"
-const mono = "'JetBrains Mono', monospace"
 
 const links = [
   { label: 'Email', value: 'efron.vl@gmail.com', href: 'mailto:efron.vl@gmail.com' },
@@ -13,90 +7,42 @@ const links = [
   { label: 'Telegram', value: '@designbyvl', href: 'https://t.me/designbyvl' },
 ]
 
-function ContactRow({ label, value, href, index }: { label: string; value: string; href: string; index: number }) {
-  const [hovered, setHovered] = useState(false)
-  return (
-    <motion.a
-      href={href}
-      initial={{ opacity: 0, x: -16 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.35, delay: 0.1 + index * 0.06 }}
-      style={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '24px 0', borderBottom: '1px solid rgba(255,255,255,0.07)',
-        textDecoration: 'none',
-        background: hovered ? 'rgba(255,255,255,0.02)' : 'transparent',
-        transition: 'background 0.15s',
-        paddingLeft: hovered ? 12 : 0,
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <span style={{
-        fontFamily: mono, fontSize: 10, letterSpacing: '0.22em',
-        textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)',
-      }}>
-        {label}
-      </span>
-      <span style={{
-        fontFamily: mono, fontSize: 13, letterSpacing: '0.06em',
-        color: hovered ? Y : 'rgba(255,255,255,0.7)',
-        transition: 'color 0.15s', display: 'flex', alignItems: 'center', gap: 10,
-      }}>
-        {value}
-        <span style={{ opacity: hovered ? 1 : 0.3, transition: 'opacity 0.15s' }}>→</span>
-      </span>
-    </motion.a>
-  )
-}
-
 export function Contacts() {
-  const m = useIsMobile()
-
   return (
-    <div style={{ background: '#111', minHeight: '100vh' }}>
-      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+    <main className="max-w-4xl mx-auto px-6 py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-lg"
+      >
+        <p className="text-sm text-indigo-500 font-medium mb-3">Contacts</p>
+        <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
+          Let's talk
+        </h1>
+        <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed mb-12">
+          Open to new opportunities, collaborations, and interesting projects.
+          Drop me a message — I usually reply within a day.
+        </p>
 
-        {/* Hero */}
-        <div style={{
-          maxWidth: 1380, margin: '0 auto',
-          padding: m ? '72px 20px 56px' : '112px 48px 72px',
-          borderBottom: '1px solid rgba(255,255,255,0.07)',
-        }}>
-          <span style={{
-            fontFamily: mono, fontSize: 10, letterSpacing: '0.28em',
-            textTransform: 'uppercase', color: Y, display: 'block', marginBottom: 24,
-          }}>
-            Get in touch
-          </span>
-          <h1 style={{
-            fontFamily: bebas, fontSize: 'clamp(72px, 13vw, 190px)',
-            lineHeight: 0.87, letterSpacing: '0.01em', color: '#fff', margin: '0 0 36px',
-          }}>
-            Let's<br />Talk
-          </h1>
-          <p style={{
-            fontSize: m ? 16 : 18, lineHeight: 1.75,
-            color: 'rgba(255,255,255,0.38)', maxWidth: '44ch', margin: 0,
-          }}>
-            Open to new opportunities, collaborations, and interesting projects.
-            Drop me a message — I usually reply within a day.
-          </p>
+        <div className="space-y-4">
+          {links.map((link, i) => (
+            <motion.a
+              key={link.label}
+              href={link.href}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 + i * 0.06 }}
+              className="flex items-center justify-between p-4 rounded-xl border border-zinc-100 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all group"
+            >
+              <span className="text-sm text-zinc-400">{link.label}</span>
+              <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                {link.value}
+              </span>
+            </motion.a>
+          ))}
         </div>
-
-        {/* Contact links */}
-        <div style={{
-          maxWidth: 1380, margin: '0 auto',
-          padding: m ? '8px 20px 80px' : '8px 48px 120px',
-        }}>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-            {links.map((link, i) => (
-              <ContactRow key={link.label} {...link} index={i} />
-            ))}
-          </div>
-        </div>
-
       </motion.div>
-    </div>
+    </main>
   )
 }

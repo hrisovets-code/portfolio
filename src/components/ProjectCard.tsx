@@ -1,11 +1,6 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import type { Project } from '../data/projects'
-
-const Y = '#FFD230'
-const bebas = "'Bebas Neue', sans-serif"
-const mono = "'JetBrains Mono', monospace"
 
 interface Props {
   project: Project
@@ -14,7 +9,7 @@ interface Props {
 
 function CoffeeStreetCover() {
   return (
-    <div className="relative overflow-hidden bg-[#272727] select-none" style={{ height: 240 }}>
+    <div className="h-52 relative overflow-hidden bg-[#272727] select-none">
       {/* Browser bar */}
       <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#1a1a1a]">
         <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
@@ -46,7 +41,9 @@ function CoffeeStreetCover() {
           <div key={i} className="rounded-md bg-[#1c1c1c] p-2 border border-white/[0.05]">
             <div className="w-full aspect-square rounded bg-white/5 mb-1.5" />
             <div className="text-[6.5px] text-white/60 leading-tight mb-1 line-clamp-2">{p.name}</div>
-            {p.sub && <div className="text-[5.5px] text-[#FFD230] mb-1">500 ₽ с подпиской</div>}
+            {p.sub && (
+              <div className="text-[5.5px] text-[#FFD230] mb-1">500 ₽ с подпиской</div>
+            )}
             <div className="text-[8px] font-bold text-white mb-1.5">{p.price}</div>
             <div className="w-full rounded bg-[#FFD230] py-[3px] text-center text-[6px] font-bold text-black tracking-wide">
               В КОРЗИНУ
@@ -60,90 +57,56 @@ function CoffeeStreetCover() {
   )
 }
 
-function PlaceholderCover({ project, index }: { project: Project; index: number }) {
-  const nums = ['01', '02', '03', '04']
-  return (
-    <div style={{
-      height: 240, background: '#181818',
-      display: 'flex', alignItems: 'flex-end', padding: '0 28px 24px',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <span style={{
-        position: 'absolute', right: -8, top: '50%', transform: 'translateY(-50%)',
-        fontFamily: bebas, fontSize: 200, lineHeight: 1,
-        color: 'rgba(255,255,255,0.025)', userSelect: 'none', pointerEvents: 'none',
-      }}>
-        {nums[index] ?? '0' + (index + 1)}
-      </span>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', position: 'relative' }}>
-        {project.tags.map(tag => (
-          <span key={tag} style={{
-            fontFamily: mono, fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.28)', padding: '5px 10px',
-            border: '1px solid rgba(255,255,255,0.1)',
-          }}>
-            {tag}
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export function ProjectCard({ project, index }: Props) {
-  const [hovered, setHovered] = useState(false)
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.07 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
     >
       <Link
         to={`/projects/${project.slug}`}
-        style={{
-          display: 'block', textDecoration: 'none',
-          background: hovered ? '#1c1c1c' : '#171717',
-          transition: 'background 0.2s',
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        className="group block rounded-2xl border border-zinc-100 dark:border-zinc-800 overflow-hidden hover:border-zinc-300 dark:hover:border-zinc-600 transition-all duration-300 hover:shadow-lg dark:hover:shadow-zinc-900"
       >
-        {/* Cover */}
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
-          {project.slug === 'coffee-street' ? (
+        {project.slug === 'coffee-street' ? (
+          <div className="relative">
             <CoffeeStreetCover />
-          ) : (
-            <PlaceholderCover project={project} index={index} />
-          )}
-          {/* Yellow top bar on hover */}
-          <div style={{
-            position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-            background: Y, opacity: hovered ? 1 : 0, transition: 'opacity 0.2s',
-          }} />
-        </div>
-
-        {/* Info strip */}
-        <div style={{ padding: '20px 28px 28px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-          <span style={{
-            fontFamily: mono, fontSize: 9, letterSpacing: '0.24em', textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.2)', display: 'block', marginBottom: 10,
-          }}>
-            {'0' + (index + 1)} · {project.role}
-          </span>
-          <span style={{
-            fontFamily: bebas, fontSize: 32, letterSpacing: '0.02em', lineHeight: 1,
-            color: hovered ? Y : '#fff', transition: 'color 0.2s',
-            display: 'block', marginBottom: 10,
-          }}>
-            {project.title}
-          </span>
-          <span style={{
-            fontFamily: mono, fontSize: 10, letterSpacing: '0.1em',
-            color: 'rgba(255,255,255,0.28)',
-          }}>
-            {project.subtitle} · {project.year}
-          </span>
+            <div className="absolute bottom-3 right-3 flex gap-1.5">
+              {project.tags.map(tag => (
+                <span key={tag} className="text-xs px-2 py-1 rounded-full bg-black/50 text-white/80 backdrop-blur-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className={`h-52 bg-gradient-to-br ${project.coverColor} relative overflow-hidden`}>
+            <div className="absolute inset-0 bg-zinc-100/40 dark:bg-zinc-900/40" />
+            <span className="absolute inset-0 flex items-center justify-center text-zinc-400 dark:text-zinc-600 text-sm">Cover image</span>
+            <div className="absolute bottom-3 right-3 flex gap-1.5">
+              {project.tags.map(tag => (
+                <span key={tag} className="text-xs px-2 py-1 rounded-full bg-white/70 dark:bg-zinc-900/70 text-zinc-600 dark:text-zinc-400 backdrop-blur-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                {project.title}
+              </h2>
+              <p className="text-sm text-zinc-500 mt-0.5">{project.subtitle}</p>
+            </div>
+            <span className="text-xs text-zinc-400 shrink-0 mt-1">{project.year}</span>
+          </div>
+          <div className="mt-3 flex items-center gap-3 text-xs text-zinc-400">
+            <span>{project.role}</span>
+            <span>·</span>
+            <span>{project.platform}</span>
+          </div>
         </div>
       </Link>
     </motion.div>
