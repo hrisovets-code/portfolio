@@ -72,27 +72,91 @@ const slideVariants = {
 }
 
 // ── User Flow ──
+// Scenario acts — sequential scripted demo
+type UfScreen = 'home' | 'catalog' | 'product' | 'cart'
+type UfAct = { screen?: UfScreen; scrollTo?: number; tap?: { x: number; y: number }; hold: number }
+
+const UF_SCREENS: Record<UfScreen, string> = {
+  home:    '/cases/coffee-street/ui/home-360.jpg',
+  catalog: '/cases/coffee-street/ui/catalog-360.jpg',
+  product: '/cases/coffee-street/ui/product-360.jpg',
+  cart:    '/cases/coffee-street/ui/cart-360.jpg',
+}
+const UF_STEPS = [
+  { key: 'home'    as UfScreen, label: 'Open App',  desc: 'Dashboard with quick-reorder shortcuts' },
+  { key: 'catalog' as UfScreen, label: 'Browse',    desc: 'Scroll to find the right product' },
+  { key: 'product' as UfScreen, label: 'Select',    desc: 'Check specs, set quantity' },
+  { key: 'cart'    as UfScreen, label: 'Checkout',  desc: 'Confirm and schedule delivery' },
+]
+// Screen-height px offset to scroll (negative = scroll down)
+const UF_SCENE: UfAct[] = [
+  { screen: 'home',    scrollTo: 0,    hold: 2200 },  // app loads
+  { scrollTo: -170,                    hold: 1200 },  // scroll homepage
+  { tap: { x: 50, y: 64 },            hold: 800  },  // tap "Каталог"
+  { screen: 'catalog', scrollTo: 0,    hold: 1700 },  // catalog opens
+  { scrollTo: -220,                    hold: 1200 },  // scroll to product card
+  { tap: { x: 50, y: 57 },            hold: 800  },  // tap product card
+  { screen: 'product', scrollTo: 0,    hold: 1700 },  // product opens
+  { scrollTo: -280,                    hold: 1200 },  // scroll to CTA
+  { tap: { x: 50, y: 87 },            hold: 800  },  // tap "В корзину"
+  { screen: 'cart',    scrollTo: 0,    hold: 2600 },  // cart
+]
+
 function UserFlowSection() {
-  const steps = [
-    { src: '/cases/coffee-street/ui/home-360.jpg',    label: 'Open App',  desc: 'Dashboard with quick-reorder shortcuts' },
-    { src: '/cases/coffee-street/ui/catalog-360.jpg', label: 'Browse',    desc: 'Filter by category, brand, or weight' },
-    { src: '/cases/coffee-street/ui/product-360.jpg', label: 'Select',    desc: 'Pick SKU, set quantity, check stock' },
-    { src: '/cases/coffee-street/ui/cart-360.jpg',    label: 'Checkout',  desc: 'Confirm order and schedule delivery' },
-  ]
-  const [idx, setIdx] = useState(0)
-  const [dir, setDir] = useState(1)
+  const [actIdx, setActIdx] = useState(0)
+  const [currentScreen, setCurrentScreen] = useState<UfScreen>('home')
   const [showTap, setShowTap] = useState(false)
+  const [tapPos, setTapPos] = useState({ x: 50, y: 70 })
+  const scrollY = useMotionValue(0)
+  // Ref to control "app opens" vs slide-in entrance animation
+  const initialLoadRef = useRef(true)
 
   useEffect(() => {
-    setShowTap(false)
-    const t1 = setTimeout(() => setShowTap(true), 2000)
-    const t2 = setTimeout(() => {
-      setShowTap(false)
-      setDir(1)
-      setIdx(i => (i + 1) % steps.length)
-    }, 3400)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
-  }, [idx])
+    const act = UF_SCENE[actIdx]
+    const timers: ReturnType<typeof setTimeout>[] = []
+    let rafId: number | null = null
+
+    // Switch screen
+    if (act.screen) {
+      if (act.screen !== 'home') initialLoadRef.current = false
+      setCurrentScreen(act.screen)
+      scrollY.set(0)
+    }
+
+    // Animate scroll with cubic ease-in-out
+    if (act.scrollTo !== undefined) {
+      const startY = scrollY.get()
+      const endY = act.scrollTo
+      if (Math.abs(endY - startY) > 1) {
+        const DUR = 1050
+        const t0 = performance.now()
+        const tick = (now: number) => {
+          const p = Math.min((now - t0) / DUR, 1)
+          const e = p < 0.5 ? 4*p*p*p : (p-1)*(2*p-2)*(2*p-2)+1
+          scrollY.set(startY + (endY - startY) * e)
+          if (p < 1) rafId = requestAnimationFrame(tick)
+        }
+        rafId = requestAnimationFrame(tick)
+      }
+    }
+
+    // Tap indicator
+    if (act.tap) {
+      const delay = act.scrollTo !== undefined ? 1100 : 80
+      timers.push(setTimeout(() => { setTapPos(act.tap!); setShowTap(true) }, delay))
+      timers.push(setTimeout(() => setShowTap(false), delay + 620))
+    }
+
+    // Advance
+    timers.push(setTimeout(() => {
+      if (actIdx === UF_SCENE.length - 1) initialLoadRef.current = true
+      setActIdx(i => (i + 1) % UF_SCENE.length)
+    }, act.hold))
+
+    return () => { timers.forEach(clearTimeout); if (rafId !== null) cancelAnimationFrame(rafId) }
+  }, [actIdx])
+
+  const currentStepIdx = UF_STEPS.findIndex(s => s.key === currentScreen)
 
   return (
     <section style={{ background: '#0a0a0a', color: W90 }}>
@@ -108,103 +172,110 @@ function UserFlowSection() {
         </p>
 
         <div style={{ display: 'flex', gap: 120, alignItems: 'flex-start', justifyContent: 'center' }}>
-          {/* Step list on the left */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, paddingTop: 24 }}>
-            {steps.map((step, i) => (
-              <div key={step.label} style={{ display: 'flex', alignItems: 'flex-start', gap: 20, paddingBottom: 40, position: 'relative' }}>
-                {/* Vertical connector line */}
-                {i < steps.length - 1 && (
+          {/* Step list */}
+          <div style={{ display: 'flex', flexDirection: 'column', paddingTop: 24 }}>
+            {UF_STEPS.map((step, i) => {
+              const isActive = step.key === currentScreen
+              const isDone = i < currentStepIdx
+              return (
+                <div key={step.key} style={{ display: 'flex', alignItems: 'flex-start', gap: 20, paddingBottom: 40, position: 'relative' }}>
+                  {i < UF_STEPS.length - 1 && (
+                    <div style={{
+                      position: 'absolute', left: 17, top: 36, width: 2, height: 40,
+                      background: isDone ? Y : 'rgba(255,255,255,.08)',
+                      transition: 'background 0.5s',
+                    }} />
+                  )}
                   <div style={{
-                    position: 'absolute', left: 17, top: 36, width: 2, height: 40,
-                    background: i < idx ? Y : 'rgba(255,255,255,.08)',
-                    transition: 'background 0.4s',
-                  }} />
-                )}
-                {/* Circle */}
-                <div style={{
-                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
-                  background: i === idx ? Y : i < idx ? 'rgba(255,210,48,0.15)' : 'rgba(255,255,255,.06)',
-                  border: i === idx ? 'none' : i < idx ? '1.5px solid rgba(255,210,48,0.35)' : '1px solid rgba(255,255,255,.1)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'all 0.4s ease',
-                  fontFamily: mono, fontSize: 12, fontWeight: 700,
-                  color: i === idx ? DARK : i < idx ? 'rgba(255,210,48,0.7)' : 'rgba(255,255,255,.3)',
-                }}>
-                  {i < idx ? '✓' : i + 1}
-                </div>
-                {/* Text */}
-                <div>
-                  <span style={{
-                    fontFamily: bebas, fontSize: 20, letterSpacing: '0.04em',
-                    color: i === idx ? W90 : i < idx ? W50 : W30,
-                    display: 'block', lineHeight: 1.1, transition: 'color 0.4s',
+                    width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                    background: isActive ? Y : isDone ? 'rgba(255,210,48,0.15)' : 'rgba(255,255,255,.06)',
+                    border: isActive ? 'none' : isDone ? '1.5px solid rgba(255,210,48,0.35)' : '1px solid rgba(255,255,255,.1)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    transition: 'all 0.4s ease',
+                    fontFamily: mono, fontSize: 12, fontWeight: 700,
+                    color: isActive ? DARK : isDone ? 'rgba(255,210,48,0.8)' : 'rgba(255,255,255,.3)',
                   }}>
-                    {step.label}
-                  </span>
-                  <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.12em', color: 'rgba(255,255,255,.25)', display: 'block', marginTop: 4, maxWidth: '22ch' }}>
-                    {step.desc}
-                  </span>
+                    {isDone ? '✓' : i + 1}
+                  </div>
+                  <div>
+                    <span style={{ fontFamily: bebas, fontSize: 20, letterSpacing: '0.04em', color: isActive ? W90 : isDone ? W50 : W30, display: 'block', lineHeight: 1.1, transition: 'color 0.4s' }}>
+                      {step.label}
+                    </span>
+                    <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.12em', color: 'rgba(255,255,255,.25)', display: 'block', marginTop: 4, maxWidth: '22ch' }}>
+                      {step.desc}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
           {/* Phone */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{
-              width: 240,
-              background: '#111',
-              borderRadius: 44,
-              padding: '16px 10px 28px',
+              width: 240, background: '#111', borderRadius: 44, padding: '16px 10px 28px',
               boxShadow: '0 50px 100px -20px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.1), 0 0 80px -15px rgba(255,210,48,0.1)',
             }}>
               <div style={{ width: 64, height: 14, background: '#000', borderRadius: 8, margin: '0 auto 12px', border: '1px solid rgba(255,255,255,.07)' }} />
+
+              {/* Screen area */}
               <div style={{ borderRadius: 24, overflow: 'hidden', position: 'relative', height: 494, background: '#000' }}>
-                <AnimatePresence custom={dir} mode="wait">
+                <AnimatePresence mode="wait">
                   <motion.img
-                    key={idx}
-                    src={steps[idx].src}
-                    alt={steps[idx].label}
-                    custom={dir}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ width: '100%', position: 'absolute', top: 0, left: 0 }}
+                    key={currentScreen}
+                    src={UF_SCREENS[currentScreen]}
+                    alt={currentScreen}
+                    // "App opens" = fade+scale up; screen change = slide from right
+                    initial={initialLoadRef.current ? { opacity: 0, scale: 0.96 } : { x: 280, opacity: 0.6 }}
+                    animate={{ x: 0, opacity: 1, scale: 1 }}
+                    exit={{ x: -280, opacity: 0 }}
+                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ y: scrollY, width: '100%', position: 'absolute', top: 0, left: 0 }}
                   />
                 </AnimatePresence>
 
+                {/* Tap ring */}
                 <AnimatePresence>
                   {showTap && (
                     <motion.div
-                      key="tap"
-                      initial={{ scale: 0.2, opacity: 0 }}
-                      animate={{ scale: [0.2, 1.05, 0.95], opacity: [0, 1, 0.85] }}
-                      exit={{ scale: 1.7, opacity: 0, transition: { duration: 0.4, ease: 'easeIn' } }}
-                      transition={{ duration: 0.45, ease: 'easeOut' }}
+                      key={`tap-${actIdx}`}
+                      initial={{ scale: 0.3, opacity: 0 }}
+                      animate={{ scale: [0.3, 1.1, 0.92], opacity: [0, 1, 0.85] }}
+                      exit={{ scale: 1.9, opacity: 0, transition: { duration: 0.38, ease: 'easeIn' } }}
+                      transition={{ duration: 0.42, ease: 'easeOut' }}
                       style={{
-                        position: 'absolute', bottom: 52,
-                        left: 'calc(50% - 26px)',
-                        width: 52, height: 52,
-                        borderRadius: '50%',
-                        background: 'rgba(255,210,48,0.25)',
+                        position: 'absolute',
+                        left: `${tapPos.x}%`, top: `${tapPos.y}%`,
+                        transform: 'translate(-50%, -50%)',
+                        width: 52, height: 52, borderRadius: '50%',
+                        background: 'rgba(255,210,48,0.28)',
                         border: `2px solid ${Y}`,
-                        pointerEvents: 'none',
+                        pointerEvents: 'none', zIndex: 10,
                       }}
                     />
                   )}
                 </AnimatePresence>
+
+                {/* Scroll hint — thin line that moves up when scrolling */}
+                <motion.div
+                  style={{
+                    position: 'absolute', right: 6, top: 12,
+                    width: 3, height: 40, borderRadius: 2,
+                    background: 'rgba(255,255,255,0.18)',
+                    scaleY: 1, originY: 0,
+                    pointerEvents: 'none', zIndex: 5,
+                  }}
+                />
               </div>
               <div style={{ width: 90, height: 4, background: 'rgba(255,255,255,.2)', borderRadius: 2, margin: '16px auto 0' }} />
             </div>
 
             {/* Dots */}
             <div style={{ display: 'flex', gap: 8, marginTop: 24 }}>
-              {steps.map((_, i) => (
+              {UF_STEPS.map((_, i) => (
                 <div key={i} style={{
-                  width: i === idx ? 24 : 6, height: 6, borderRadius: 3,
-                  background: i === idx ? Y : 'rgba(255,255,255,.18)',
+                  width: i === currentStepIdx ? 24 : 6, height: 6, borderRadius: 3,
+                  background: i === currentStepIdx ? Y : i < currentStepIdx ? 'rgba(255,210,48,0.4)' : 'rgba(255,255,255,.18)',
                   transition: 'all 0.35s ease',
                 }} />
               ))}
