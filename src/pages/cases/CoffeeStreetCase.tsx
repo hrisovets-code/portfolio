@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion'
 import { coffeeStreet } from '../../data/cases/coffeeStreet'
+import { useIsMobile } from '../../hooks/useIsMobile'
 
 type CaseData = typeof coffeeStreet
 
@@ -48,7 +49,7 @@ function Eyebrow({ children, light = false }: { children: string; light?: boolea
 function BigTitle({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <h2 style={{
-      fontFamily: bebas, fontSize: 'clamp(56px, 7vw, 100px)',
+      fontFamily: bebas, fontSize: 'clamp(36px, 7vw, 100px)',
       lineHeight: 0.9, letterSpacing: '0.01em', margin: 0,
       color: light ? INK : W90,
     }}>
@@ -102,6 +103,7 @@ const UF_SCENE: UfAct[] = [
 ]
 
 function UserFlowSection() {
+  const m = useIsMobile()
   // One motion value per screen — when transitioning, the exiting screen keeps
   // its own scroll offset (no snap-to-zero flash), the entering screen starts at 0.
   const scrollHome    = useMotionValue(0)
@@ -163,18 +165,18 @@ function UserFlowSection() {
 
   return (
     <section style={{ background: '#0a0a0a', color: W90 }}>
-      <div style={{ padding: '120px 72px 140px', maxWidth: 1380, margin: '0 auto' }}>
+      <div style={{ padding: m ? '64px 20px 80px' : '120px 72px 140px', maxWidth: 1380, margin: '0 auto' }}>
         <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase', color: W30, display: 'block', marginBottom: 12 }}>
           08 / User Flow
         </span>
-        <div style={{ fontFamily: bebas, fontSize: 'clamp(48px, 6vw, 86px)', color: '#fff', lineHeight: 1, letterSpacing: '0.02em', marginBottom: 16 }}>
+        <div style={{ fontFamily: bebas, fontSize: 'clamp(32px, 6vw, 86px)', color: '#fff', lineHeight: 1, letterSpacing: '0.02em', marginBottom: 16 }}>
           4 STEPS.<br />ONE ORDER.
         </div>
-        <p style={{ fontSize: 16, color: W50, maxWidth: '50ch', marginBottom: 80, lineHeight: 1.75 }}>
+        <p style={{ fontSize: m ? 14 : 16, color: W50, maxWidth: '50ch', marginBottom: m ? 48 : 80, lineHeight: 1.75 }}>
           A B2B buyer opens the app, browses the catalogue, selects a product, and places a wholesale order — in under 30 seconds.
         </p>
 
-        <div style={{ display: 'flex', gap: 120, alignItems: 'flex-start', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: m ? 48 : 120, flexDirection: m ? 'column' : 'row', alignItems: m ? 'center' : 'flex-start', justifyContent: 'center' }}>
           {/* Step list */}
           <div style={{ display: 'flex', flexDirection: 'column', paddingTop: 24 }}>
             {UF_STEPS.map((step, i) => {
@@ -457,6 +459,7 @@ function PhoneDemoPlayer() {
 
 // ── Main component ──
 export function CoffeeStreetCase({ data }: { data: CaseData }) {
+  const m = useIsMobile()
   return (
     <div style={{ overflowX: 'hidden' }}>
 
@@ -470,7 +473,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
       }}>
         {/* Top strip */}
         <div style={{
-          borderBottom: `1px solid ${W08}`, padding: '14px 48px',
+          borderBottom: `1px solid ${W08}`, padding: m ? '14px 20px' : '14px 48px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <Link to="/" style={{
@@ -480,20 +483,20 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           }}>
             <ArrowLeft size={12} /> All projects
           </Link>
-          <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: W20 }}>
+          {!m && <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: W20 }}>
             UX/UI · B2B E-COMMERCE · NORTH CAUCASUS
-          </span>
-          <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: W20 }}>
+          </span>}
+          {!m && <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: W20 }}>
             2024–2025
-          </span>
+          </span>}
         </div>
 
         {/* Two-column body */}
-        <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 440px', minHeight: 0 }}>
+        <div style={{ flex: 1, display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 440px', minHeight: 0 }}>
 
           {/* Left: text */}
           <div style={{
-            padding: '60px 48px 0', borderRight: `1px solid ${W08}`,
+            padding: m ? '40px 20px 0' : '60px 48px 0', borderRight: m ? 'none' : `1px solid ${W08}`,
             display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
           }}>
             <span style={{
@@ -503,13 +506,13 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
               UX/UI Design · B2B E-Commerce Platform
             </span>
             <div style={{
-              fontFamily: bebas, fontSize: 'clamp(72px, 9vw, 136px)',
+              fontFamily: bebas, fontSize: 'clamp(44px, 9vw, 136px)',
               lineHeight: 0.88, letterSpacing: '0.01em', color: W90, marginBottom: 4,
             }}>
               COFFEE STREET
             </div>
             <div style={{
-              fontFamily: bebas, fontSize: 'clamp(40px, 5vw, 76px)',
+              fontFamily: bebas, fontSize: 'clamp(26px, 5vw, 76px)',
               lineHeight: 1, letterSpacing: '0.03em', color: Y, marginBottom: 36,
             }}>
               B2B PLATFORM
@@ -520,7 +523,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             </p>
 
             {/* Meta grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1, background: W08 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr 1fr' : 'repeat(4, 1fr)', gap: 1, background: W08 }}>
               {([
                 { label: 'Year', value: '2024–2025' },
                 { label: 'Role', value: 'UX/UI Designer' },
@@ -535,7 +538,8 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             </div>
           </div>
 
-          {/* Right: animated mockup */}
+          {/* Right: animated mockup — hidden on mobile */}
+          {!m && (
           <div style={{
             background: DARK2, display: 'flex', flexDirection: 'column',
             justifyContent: 'flex-end', overflow: 'hidden', position: 'relative',
@@ -575,6 +579,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
               <span style={{ fontFamily: mono, fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', color: W20 }}>1440px · Desktop</span>
             </div>
           </div>
+          )}
         </div>
       </section>
 
@@ -586,10 +591,10 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
         {/* Header row */}
         <div style={{
-          padding: '100px 72px 80px',
+          padding: m ? '60px 20px 40px' : '100px 72px 80px',
           borderBottom: `1px solid ${D08}`,
-          display: 'grid', gridTemplateColumns: '1fr 1fr',
-          gap: 80, alignItems: 'end',
+          display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr',
+          gap: m ? 40 : 80, alignItems: 'end',
         }}>
           <div>
             <Eyebrow light>01 / About the Project</Eyebrow>
@@ -615,7 +620,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
         </div>
 
         {/* Pull quote — full bleed */}
-        <div style={{ background: INK, padding: '48px 72px', borderBottom: `1px solid ${D08}` }}>
+        <div style={{ background: INK, padding: m ? '32px 20px' : '48px 72px', borderBottom: `1px solid ${D08}` }}>
           <p style={{
             fontSize: 'clamp(20px, 2.4vw, 30px)', fontWeight: 300, fontStyle: 'italic',
             lineHeight: 1.45, color: 'rgba(255,255,255,.85)', maxWidth: 800,
@@ -630,7 +635,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
         </div>
 
         {/* Company metrics — full bleed grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1, background: CREAM2 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr 1fr' : 'repeat(4, 1fr)', gap: 1, background: CREAM2 }}>
           {([
             { num: '19+', label: 'Years on market', accent: true },
             { num: '11', label: 'Companies in the holding', accent: false },
@@ -657,13 +662,13 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           PROBLEM
       ════════════════════════════════════════ */}
       <section style={{ background: '#1A1A19', color: W90, overflow: 'hidden' }}>
-        <div style={{ padding: '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
+        <div style={{ padding: m ? '60px 20px 0' : '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
           <Eyebrow>02 / The Problem</Eyebrow>
           <BigTitle>Orders via WhatsApp.<br />At Midnight.</BigTitle>
 
           <div style={{ marginTop: 64, marginBottom: 72 }}>
             <blockquote style={{
-              fontSize: 28, fontWeight: 300, fontStyle: 'italic',
+              fontSize: m ? 20 : 28, fontWeight: 300, fontStyle: 'italic',
               lineHeight: 1.5, color: 'rgba(255,255,255,.8)', maxWidth: 800,
               borderLeft: `3px solid ${Y}`, paddingLeft: 32, margin: 0,
             }}>
@@ -677,8 +682,8 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
         </div>
 
         {/* Pain cards */}
-        <div style={{ maxWidth: 1380, margin: '0 auto', padding: '0 72px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: W08 }}>
+        <div style={{ maxWidth: 1380, margin: '0 auto', padding: m ? '0 20px' : '0 72px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : 'repeat(3, 1fr)', gap: 1, background: W08 }}>
             {[
               {
                 title: 'No Order History',
@@ -708,15 +713,15 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
       ════════════════════════════════════════ */}
       <section style={{ background: CREAM, color: INK }}>
         <YellowLine />
-        <div style={{ padding: '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
+        <div style={{ padding: m ? '60px 20px 0' : '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
           <Eyebrow light>03 / Research</Eyebrow>
           <BigTitle light>18 Interviews.<br />7 Discovery Vectors.</BigTitle>
 
           {/* Left / right grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 1, background: CREAM2, marginTop: 64 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '3fr 2fr', gap: 1, background: CREAM2, marginTop: 64 }}>
 
             {/* Left: methodology + respondents */}
-            <div style={{ background: CREAM, padding: '56px 56px 56px 0' }}>
+            <div style={{ background: CREAM, padding: m ? '32px 0' : '56px 56px 56px 0' }}>
               <p style={{ fontSize: 17, lineHeight: 1.85, color: MUTED, maxWidth: '56ch', marginBottom: 36 }}>
                 {data.research.method}
               </p>
@@ -803,7 +808,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           WIREFRAMES / PROCESS
       ════════════════════════════════════════ */}
       <section style={{ background: DARK, color: W90 }}>
-        <div style={{ padding: '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
+        <div style={{ padding: m ? '60px 20px 0' : '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
           <Eyebrow>04 / Wireframes & Process</Eyebrow>
           <BigTitle>Structure Before<br />Visual.</BigTitle>
           <p style={{ fontSize: 17, lineHeight: 1.75, color: W50, maxWidth: 600, marginTop: 32, marginBottom: 64 }}>
@@ -811,7 +816,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             Benchmarking of 8 B2B platforms done directly in Figma alongside the wireframes.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 2, background: W08, marginBottom: 100 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr 1fr', gap: 2, background: W08, marginBottom: 100 }}>
             {[
               {
                 src: '/cases/coffee-street/wireframes/wf-home.png',
@@ -850,7 +855,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
       ════════════════════════════════════════ */}
       <section style={{ background: CREAM, color: INK }}>
         <YellowLine />
-        <div style={{ padding: '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
+        <div style={{ padding: m ? '60px 20px 0' : '100px 72px 0', maxWidth: 1380, margin: '0 auto' }}>
           <Eyebrow light>05 / Design System</Eyebrow>
           <BigTitle light>Brand Tokens.</BigTitle>
 
@@ -862,7 +867,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           </p>
 
           {/* Color swatches */}
-          <div style={{ display: 'flex', gap: 16, marginBottom: 56 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: m ? 'repeat(3, 1fr)' : 'repeat(6, 1fr)', gap: 16, marginBottom: 56 }}>
             {[
               { hex: '#FFD230', name: 'Brand Yellow', role: 'Primary · CTAs' },
               { hex: '#272727', name: 'Dark Gray', role: 'Surface · dark' },
@@ -881,7 +886,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           </div>
 
           {/* Typography dark panel */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(0,0,0,0.08)', marginBottom: 56 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr', gap: 1, background: 'rgba(0,0,0,0.08)', marginBottom: 56 }}>
             <div style={{ background: DARK, padding: 48 }}>
               <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: W30, display: 'block', marginBottom: 16 }}>
                 BEBAS NEUE · Display
@@ -906,7 +911,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           </div>
 
           {/* Scope strip */}
-          <div style={{ display: 'flex', gap: 48, padding: '28px 0', borderTop: `1px solid ${CREAM2}`, borderBottom: `1px solid ${CREAM2}`, marginBottom: 48 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: m ? 24 : 48, padding: '28px 0', borderTop: `1px solid ${CREAM2}`, borderBottom: `1px solid ${CREAM2}`, marginBottom: 48 }}>
             {[['80+', 'components'], ['4', 'breakpoints'], ['20+', 'pages'], ['MD3', 'token system']].map(([n, l]) => (
               <div key={l}>
                 <span style={{ fontSize: 24, fontWeight: 700, color: INK }}>{n}</span>
@@ -943,7 +948,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           ADAPTIVE DESIGN
       ════════════════════════════════════════ */}
       <section style={{ background: '#111', color: W90, overflow: 'hidden' }}>
-        <div style={{ padding: '120px 72px 120px', maxWidth: 1380, margin: '0 auto' }}>
+        <div style={{ padding: m ? '60px 20px 60px' : '120px 72px 120px', maxWidth: 1380, margin: '0 auto' }}>
           <span style={{ fontFamily: mono, fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase', color: W30, display: 'block', marginBottom: 12 }}>
             06 / Adaptive Design
           </span>
@@ -955,9 +960,9 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           </p>
 
           {/* Side-by-side: browser + phone */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 48 }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: m ? 32 : 48, flexDirection: m ? 'column' : 'row' }}>
             {/* Desktop browser mockup */}
-            <div style={{ flex: '0 0 67%', maxWidth: '67%' }}>
+            <div style={{ flex: m ? '1 1 auto' : '0 0 67%', maxWidth: m ? '100%' : '67%', width: m ? '100%' : undefined }}>
               <div style={{
                 borderRadius: 12, overflow: 'hidden',
                 boxShadow: '0 40px 80px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07)',
@@ -1007,7 +1012,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           FINAL UI SCREENS
       ════════════════════════════════════════ */}
       <section style={{ background: '#181818', paddingBottom: 0, overflow: 'hidden' }}>
-        <div style={{ padding: '120px 72px 0', maxWidth: 1380, margin: '0 auto', position: 'relative' }}>
+        <div style={{ padding: m ? '60px 20px 0' : '120px 72px 0', maxWidth: 1380, margin: '0 auto', position: 'relative' }}>
           {/* Background glow */}
           <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,210,48,0.12) 0%, transparent 65%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
@@ -1045,7 +1050,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
           </div>
 
           {/* 2×2 screen grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, background: 'rgba(255,255,255,.06)', maxWidth: 900, margin: '80px auto 0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr', gap: 2, background: 'rgba(255,255,255,.06)', maxWidth: 900, margin: '80px auto 0' }}>
             {[
               { src: '/cases/coffee-street/ui/catalog-1440.jpg', label: 'Catalogue' },
               { src: '/cases/coffee-street/ui/product-1440.jpg', label: 'Product page' },
@@ -1061,7 +1066,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
 
           {/* Interactive phone demo */}
           <div style={{ marginTop: 80 }}>
-            <div style={{ background: '#0e0e0e', padding: '80px 40px 0', borderRadius: '20px 20px 0 0', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ background: '#0e0e0e', padding: m ? '40px 20px 0' : '80px 40px 0', borderRadius: '20px 20px 0 0', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
               <PhoneDemoPlayer />
             </div>
           </div>
@@ -1075,11 +1080,11 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
       ════════════════════════════════════════ */}
       <section style={{ background: CREAM, color: INK }}>
         <YellowLine />
-        <div style={{ padding: '100px 72px 100px', maxWidth: 1380, margin: '0 auto' }}>
+        <div style={{ padding: m ? '60px 20px 60px' : '100px 72px 100px', maxWidth: 1380, margin: '0 auto' }}>
           <Eyebrow light>09 / Outcome</Eyebrow>
           <BigTitle light>Delivered.<br />Ready to Ship.</BigTitle>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, marginTop: 64, marginBottom: 72 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: m ? '1fr' : '1fr 1fr', gap: m ? 40 : 80, marginTop: 64, marginBottom: 72 }}>
             <p style={{ fontSize: 17, lineHeight: 1.85, color: MUTED, maxWidth: '50ch', margin: 0 }}>
               From a company that ran entirely on WhatsApp and phone calls — to a fully designed
               B2B e-commerce platform ready for development handoff. First digital channel for
@@ -1111,7 +1116,7 @@ export function CoffeeStreetCase({ data }: { data: CaseData }) {
             <Link to="/projects/project-two" style={{ display: 'block', textDecoration: 'none' }}>
               <div style={{
                 background: DARK, borderRadius: 6,
-                padding: '56px 64px',
+                padding: m ? '32px 24px' : '56px 64px',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 transition: 'background 0.2s',
               }}
